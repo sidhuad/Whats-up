@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 // Define the attributes for the User model
 interface UserAttributes {
   id: number;
+  name?: string;
   username: string;
   email: string;
   password: string;
