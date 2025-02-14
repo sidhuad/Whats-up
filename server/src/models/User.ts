@@ -20,7 +20,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public email!: string;
   public password!: string;
 
-  public readonly createdAt!: Date;
+  // public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
   // Method to hash and set the password for the user
@@ -42,10 +42,12 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
