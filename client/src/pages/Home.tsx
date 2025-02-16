@@ -5,6 +5,8 @@ import ErrorPage from "./ErrorPage";
 import UserList from '../components/Users';
 import auth from '../utils/auth';
 
+
+
 const Home = () => {
 
     const [users, setUsers] = useState<UserData[]>([]);
@@ -47,10 +49,11 @@ const Home = () => {
                 !loginCheck ? (
                     <div className='login-notice'>
                         <h1>
-                            Login to view all your friends!
+                            Login to start chatting with your friends! 🤠
                         </h1>
                     </div>
                 ) : (
+                    //todo need to change this code to serve chat app and room
                     <UserList users={users} />
                 )}
         </>

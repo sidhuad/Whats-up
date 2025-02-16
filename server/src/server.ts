@@ -5,12 +5,40 @@ import path from 'node:path';
 const root = process.cwd();
 import sequelize from './config/connection.js';
 import routes from './routes/index.js';
+import {Server} from 'socket.io';
+import http from 'http';
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// creating http server anmd passing it to socket.io
+const server = http.createServer(app);
+
+//intialize socket.io with http server
+const io = new Server(server,{
+  cors:{
+    // client side address.
+    origin: `http://localhost:3000`
+  }
+});
+
 // Serves static files in the entire client's dist folder
 app.use(express.static('../client/dist'));
+
+io.on("connection",(socket) => {
+  console.log(`User Connected ${socket.id}`);
+
+  socket.on("join_room",(data) => {
+    socket.join(data);
+  })
+
+  socket.on("send_message",(data) => {
+    socket.to(data.room).emit("receive_message",data);
+  })
+  
+})
 
 // Middleware to parse incoming requests
 app.use(express.json());

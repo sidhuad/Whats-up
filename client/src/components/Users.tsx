@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import type { UserData } from "../interfaces/UserData";
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3001');
+
 
 // Define the props for the component
 interface UserListProps {
@@ -8,6 +12,19 @@ interface UserListProps {
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
+
+    const [room,setRoom] = useState("");
+    const [message,setMessage] = useState("");
+    const [messageReceived, setMessageReceived] = useState("");
+
+    const joinRoom = () => {if (room !== "") {socket.emit("join_room",room)}}
+
+    const sendMessage = () => socket.emit("send_message",{message,room});
+
+    useEffect(() => {
+        socket.on("receive_message",(data)=>{setMessageReceived(data.message)})
+    })
+
     return (
         <>
             <h2 className="pb-5">
