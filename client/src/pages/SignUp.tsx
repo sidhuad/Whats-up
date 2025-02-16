@@ -5,6 +5,7 @@ import { signUp } from "../api/authAPI";  // Import the login function from the 
 import { UserLogin } from "../interfaces/UserLogin";  // Import the interface for UserLogin
 
 const SignUp = () => {
+
   // State to manage the login form data
   const [signUpData, setSignUpData] = useState<UserLogin>({
     username: '',
@@ -29,6 +30,7 @@ const SignUp = () => {
       const data = await signUp(signUpData);
       // If sign up is successful, call Auth.login to store the token in localStorage
       Auth.login(data.token);
+      alert('sign up funct done');
     } catch (err) {
       console.error('Failed to login', err);  // Log any errors that occur during sign up
     }

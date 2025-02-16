@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+// import React, {useEffect, useState} from 'react';
 
 import type { UserData } from "../interfaces/UserData";
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+// const socket = io('http://localhost:3001');
 
 
 // Define the props for the component
@@ -13,17 +13,17 @@ interface UserListProps {
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
 
-    const [room,setRoom] = useState("");
-    const [message,setMessage] = useState("");
-    const [messageReceived, setMessageReceived] = useState("");
+    // const [room,setRoom] = useState("");
+    // const [message,setMessage] = useState("");
+    // const [messageReceived, setMessageReceived] = useState("");
 
-    const joinRoom = () => {if (room !== "") {socket.emit("join_room",room)}}
+    // const joinRoom = () => {if (room !== "") {socket.emit("join_room",room)}}
 
-    const sendMessage = () => socket.emit("send_message",{message,room});
+    // const sendMessage = () => socket.emit("send_message",{message,room});
 
-    useEffect(() => {
-        socket.on("receive_message",(data)=>{setMessageReceived(data.message)})
-    })
+    // useEffect(() => {
+    //     socket.on("receive_message",(data)=>{setMessageReceived(data.message)})
+    // })
 
     return (
         <>
@@ -41,6 +41,20 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                 </div>
             ))}
         </>
+        // <>
+        //     <section className='container'>
+        //         <section>
+        //         <article className='allUsers'>
+
+        //         </article>
+        //         </section>
+        //         <section className='mainbodyforchatroom'>
+        //         <header></header>
+        //         <main></main>
+        //         <footer></footer>
+        //         </section>
+        //     </section>
+        // </>
     );
 };
 
