@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { UserData } from "../interfaces/UserData";
+import { type JwtPayload, jwtDecode } from 'jwt-decode';
 // import io from "socket.io-client";
 
 // const socket = io("http://localhost:3001");
@@ -8,6 +9,7 @@ import type { UserData } from "../interfaces/UserData";
 interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
+interface CustomJwtPayload extends JwtPayload { username: string; }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
   //   const [room, setRoom] = useState("");
@@ -27,6 +29,20 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   //       setMessageReceived(data.message);
   //     });
   //   });
+  let decodedUserToken: CustomJwtPayload | null = null;
+  const currentUserToken = localStorage.getItem('id_token')
+  if (currentUserToken) { 
+    decodedUserToken = jwtDecode<CustomJwtPayload>(currentUserToken)
+  }
+  const currentUser = decodedUserToken?.username
+
+  const [recipientID, setRecipientID] = useState(0);
+  const [recipientName, setRecipientName] = useState("");
+
+  function getUser(id: number, name: string) {
+    setRecipientID(id);
+    setRecipientName(name);
+  }
 
   const [recipient, setRecipient] = useState(0);
 
@@ -44,15 +60,23 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           <div className="col-md-4">
             <section className="card p-3">
               <h4>Users</h4>
-              {users &&
-                users.map((user) => (
+              {decodedUserToken && users &&
+                users
+                .filter ((user) => user.username !== currentUser)
+                .map((user) => (
                   <div
                     className="d-flex justify-content-start align-items-center mb-3"
                     key={user.id}
                     data-id={user.id}
                   >
                     <div>
-                      <h6 onClick={() => user.id && getUserID(user.id)}>
+                      <h6
+                        onClick={() =>
+                          user.id &&
+                          user.username &&
+                          getUser(user.id, user.username)
+                        }
+                      >
                         {user.id}. {user.username}
                       </h6>
                     </div>
@@ -62,8 +86,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           </div>
 
           {/* Right Column - Chatroom */}
-
-          {recipient? (
+          {recipientID !== 0 ? (
             <div className="col-md-8">
               <section className="card">
                 <header className="card-header text-center">
@@ -76,10 +99,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                 >
                   {/* Chat messages go here */}
                   <div className="message mb-3">
-                    <strong>User 1:</strong> Hello! (placeholder text)
-                  </div>
-                  <div className="message mb-3 text-end">
-                    <strong>You:</strong> Hi there! (placeholder text)
+                    <strong>{recipientName}:</strong> Hello! (placeholder text)
                   </div>
                 </main>
                 <footer className="card-footer">
@@ -94,15 +114,17 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                 </footer>
               </section>
             </div>
-          ):(
-          <div>No User Selected</div>
+          ) : (
+            <>
+              <h1>No User Selected</h1>
+            </>
           )}
-          </div>
+        </div>
       </div>
 
       {/* Footer */}
       <footer className="text-center mt-5">
-        Created by Mike, Jenny, and Adarsh
+        Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
     </>
   );
