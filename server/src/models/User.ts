@@ -44,7 +44,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
         primaryKey: true,
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING, 
         allowNull: true,
       },
       username: {

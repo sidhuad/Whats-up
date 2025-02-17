@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import type { UserData } from "../interfaces/UserData";
+import { type JwtPayload, jwtDecode } from 'jwt-decode';
 // import io from "socket.io-client";
 
 // const socket = io("http://localhost:3001");
@@ -9,6 +10,7 @@ import type { UserData } from "../interfaces/UserData";
 interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
+interface CustomJwtPayload extends JwtPayload { username: string; }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
   //   const [room, setRoom] = useState("");
@@ -28,6 +30,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   //       setMessageReceived(data.message);
   //     });
   //   });
+  let decodedUserToken: CustomJwtPayload | null = null;
+  const currentUserToken = localStorage.getItem('id_token')
+  if (currentUserToken) { 
+    decodedUserToken = jwtDecode<CustomJwtPayload>(currentUserToken)
+  }
+  const currentUser = decodedUserToken?.username
 
   const [recipientID, setRecipientID] = useState(0);
   const [recipientName, setRecipientName] = useState("");
@@ -47,8 +55,10 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           <div className="col-md-4">
             <section className="card p-3">
               <h4>Users</h4>
-              {users &&
-                users.map((user) => (
+              {decodedUserToken && users &&
+                users
+                .filter ((user) => user.username !== currentUser)
+                .map((user) => (
                   <div
                     className="d-flex justify-content-start align-items-center mb-3"
                     key={user.id}
@@ -109,7 +119,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
       {/* Footer */}
       <footer className="text-center mt-5">
-        Created by Mike, Jenny, and Adarsh
+        Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
     </>
   );
