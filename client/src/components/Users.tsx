@@ -103,7 +103,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
       {/* Footer */}
       <footer className="text-center mt-5">
-        Created by Mike, Jenny, and Adarsh
+        Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
     </>
   );
