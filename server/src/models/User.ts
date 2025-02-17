@@ -16,12 +16,13 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 // Define the User class extending Sequelize's Model
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: number;
+  public name!: string;
   public username!: string;
   public email!: string;
   public password!: string;
 
   // public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  // public readonly updatedAt!: Date;
 
   // Method to hash and set the password for the user
   public async setPassword(password: string) {
@@ -38,6 +39,10 @@ export function UserFactory(sequelize: Sequelize): typeof User {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+      },
+      name: {
+        type: DataTypes.INTEGER, 
+        allowNull: true,
       },
       username: {
         type: DataTypes.STRING,
