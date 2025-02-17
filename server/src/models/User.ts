@@ -41,7 +41,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
         primaryKey: true,
       },
       name: {
-        type: DataTypes.INTEGER, 
+        type: DataTypes.STRING, 
         allowNull: true,
       },
       username: {
@@ -62,6 +62,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
     {
       tableName: 'users',  // Name of the table in PostgreSQL
       sequelize,// The Sequelize instance that connects to PostgreSQL
+      timestamps:false,
       hooks: {
         // Before creating a new user, hash and set the password
         beforeCreate: async (user: User) => {

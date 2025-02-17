@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import type { UserData } from "../interfaces/UserData";
 // import io from "socket.io-client";
 
@@ -8,11 +7,6 @@ import type { UserData } from "../interfaces/UserData";
 // Define the props for the component
 interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
-}
-// const [recipient, setRecipient] = useState(0);
-
-function getUserID(id: number) {
-  setRecipient(id);
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
@@ -33,6 +27,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   //       setMessageReceived(data.message);
   //     });
   //   });
+
+  const [recipient, setRecipient] = useState(0);
+
+  function getUserID(id: number) {
+    setRecipient(id);
+  }
 
   return (
     <>
@@ -62,43 +62,42 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           </div>
 
           {/* Right Column - Chatroom */}
-          {/* {recipient === 0 ? ( */}
-          <div className="col-md-8">
-            <section className="card">
-              <header className="card-header text-center">
-                (Placeholder for who you are chatting with)
-              </header>
-              <main
-                className="card-body chat-box overflow-auto"
-                id="chatBox"
-                style={{ height: "400px" }}
-              >
-                {/* Chat messages go here */}
-                <div className="message mb-3">
-                  <strong>User 1:</strong> Hello! (placeholder text)
-                </div>
-                <div className="message mb-3 text-end">
-                  <strong>You:</strong> Hi there! (placeholder text)
-                </div>
-              </main>
-              <footer className="card-footer">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Type your message.."
-                  />
-                  <button className="btn btn-primary">Send</button>
-                </div>
-              </footer>
-            </section>
+
+          {recipient? (
+            <div className="col-md-8">
+              <section className="card">
+                <header className="card-header text-center">
+                  (Placeholder for who you are chatting with)
+                </header>
+                <main
+                  className="card-body chat-box overflow-auto"
+                  id="chatBox"
+                  style={{ height: "400px" }}
+                >
+                  {/* Chat messages go here */}
+                  <div className="message mb-3">
+                    <strong>User 1:</strong> Hello! (placeholder text)
+                  </div>
+                  <div className="message mb-3 text-end">
+                    <strong>You:</strong> Hi there! (placeholder text)
+                  </div>
+                </main>
+                <footer className="card-footer">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Type your message.."
+                    />
+                    <button className="btn btn-primary">Send</button>
+                  </div>
+                </footer>
+              </section>
+            </div>
+          ):(
+          <div>No User Selected</div>
+          )}
           </div>
-          {/* ) : (
-            <>
-              <h1>Hello</h1>
-            </>
-          )} */}
-        </div>
       </div>
 
       {/* Footer */}
