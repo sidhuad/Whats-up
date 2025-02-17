@@ -11,11 +11,6 @@ interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
 interface CustomJwtPayload extends JwtPayload { username: string; }
-// const [recipient, setRecipient] = useState(0);
-
-function getUserID(id: number) {
-  setRecipient(id);
-}
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
   //   const [room, setRoom] = useState("");
@@ -42,6 +37,14 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   }
   const currentUser = decodedUserToken?.username
 
+  const [recipientID, setRecipientID] = useState(0);
+  const [recipientName, setRecipientName] = useState("");
+
+  function getUser(id: number, name: string) {
+    setRecipientID(id);
+    setRecipientName(name);
+  }
+
   return (
     <>
       <div className="container mt-5">
@@ -62,7 +65,13 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                     data-id={user.id}
                   >
                     <div>
-                      <h6 onClick={() => user.id && getUserID(user.id)}>
+                      <h6
+                        onClick={() =>
+                          user.id &&
+                          user.username &&
+                          getUser(user.id, user.username)
+                        }
+                      >
                         {user.id}. {user.username}
                       </h6>
                     </div>
@@ -72,42 +81,39 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           </div>
 
           {/* Right Column - Chatroom */}
-          {/* {recipient === 0 ? ( */}
-          <div className="col-md-8">
-            <section className="card">
-              <header className="card-header text-center">
-                (Placeholder for who you are chatting with)
-              </header>
-              <main
-                className="card-body chat-box overflow-auto"
-                id="chatBox"
-                style={{ height: "400px" }}
-              >
-                {/* Chat messages go here */}
-                <div className="message mb-3">
-                  <strong>User 1:</strong> Hello! (placeholder text)
-                </div>
-                <div className="message mb-3 text-end">
-                  <strong>You:</strong> Hi there! (placeholder text)
-                </div>
-              </main>
-              <footer className="card-footer">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Type your message.."
-                  />
-                  <button className="btn btn-primary">Send</button>
-                </div>
-              </footer>
-            </section>
-          </div>
-          {/* ) : (
+          {recipientID !== 0 ? (
+            <div className="col-md-8">
+              <section className="card">
+                <header className="card-header text-center">
+                  (Placeholder for who you are chatting with)
+                </header>
+                <main
+                  className="card-body chat-box overflow-auto"
+                  id="chatBox"
+                  style={{ height: "400px" }}
+                >
+                  {/* Chat messages go here */}
+                  <div className="message mb-3">
+                    <strong>{recipientName}:</strong> Hello! (placeholder text)
+                  </div>
+                </main>
+                <footer className="card-footer">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Type your message.."
+                    />
+                    <button className="btn btn-primary">Send</button>
+                  </div>
+                </footer>
+              </section>
+            </div>
+          ) : (
             <>
-              <h1>Hello</h1>
+              <h1>No User Selected</h1>
             </>
-          )} */}
+          )}
         </div>
       </div>
 
