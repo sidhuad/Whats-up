@@ -1,11 +1,7 @@
 import { Messages } from "../models/Messages";
 import { Conversations } from "../models/Conversations";
 
-export const addMessage = async (
-  sender: number,
-  reciever: number,
-  message: string
-) => {
+export const getConversationID = async (sender: number, reciever: number) => {
   const convID = await Conversations.findOne({
     where: {
       sender_id: sender,
@@ -15,16 +11,16 @@ export const addMessage = async (
 
   if (convID) {
     const conversationId = convID.id;
-
-    const newMessage = await Messages.create({
-      conversation_id: conversationId,
-      body: message,
-      status: "sent",
-    });
-
-    return newMessage;
-  } else {
-    console.log("Conversation not found.");
-    return;
+    return conversationId;
   }
+  console.log("Conversation not found.");
+  return;
+};
+
+export const addMessage = async (conversation_id: number, body: string) => {
+  await Messages.create({
+    conversation_id,
+    body,
+    status: "sent",
+  });
 };
