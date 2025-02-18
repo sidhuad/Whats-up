@@ -4,6 +4,7 @@ import type { UserData } from "../interfaces/UserData";
 import ErrorPage from "./ErrorPage";
 import UserList from '../components/Users';
 import auth from '../utils/auth';
+import logo from "../assets/images/Whats-Up-Logo.png"
 
 
 
@@ -51,6 +52,7 @@ const Home = () => {
                         <h1>
                             Login to start chatting with your friends! 🤠
                         </h1>
+                        <img src={logo} alt="What's Up Logo"></img>
                     </div>
                 ) : (
                     //todo need to change this code to serve chat app and room

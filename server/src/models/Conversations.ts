@@ -20,14 +20,9 @@ export class Conversations extends Model<ConversationsAttributes, ConversationsC
 //   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  // Method to hash and set the password for the user
-//   public async setPassword(password: string) {
-//     const saltRounds = 10;
-//     this.password = await bcrypt.hash(password, saltRounds);
-//   }
 }
 
-// Define the UserFactory function to initialize the User model
+// Define the ConversationsFactory function to initialize the Conversation model
 export function ConversationsFactory(sequelize: Sequelize): typeof Conversations {
   Conversations.init(
     {

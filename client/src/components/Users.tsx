@@ -1,73 +1,128 @@
-// import React, {useEffect, useState} from 'react';
+import { useState } from "react";
 
 import type { UserData } from "../interfaces/UserData";
-// import io from 'socket.io-client';
+import { type JwtPayload, jwtDecode } from 'jwt-decode';
+// import io from "socket.io-client";
 
-// const socket = io('http://localhost:3001');
-
+// const socket = io("http://localhost:3001");
 
 // Define the props for the component
 interface UserListProps {
-    users: UserData[] | null; // users can be an array of UserData objects or null
+  users: UserData[] | null; // users can be an array of UserData objects or null
 }
+interface CustomJwtPayload extends JwtPayload { username: string; }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
+  //   const [room, setRoom] = useState("");
+  //   const [message, setMessage] = useState("");
+  //   const [messageReceived, setMessageReceived] = useState("");
 
-    // const [room,setRoom] = useState("");
-    // const [message,setMessage] = useState("");
-    // const [messageReceived, setMessageReceived] = useState("");
+  //   const joinRoom = () => {
+  //     if (room !== "") {
+  //       socket.emit("join_room", room);
+  //     }
+  //   };
 
-    // const joinRoom = () => {if (room !== "") {socket.emit("join_room",room)}}
+  //   const sendMessage = () => socket.emit("send_message", { message, room });
 
-    // const sendMessage = () => socket.emit("send_message",{message,room});
+  //   useEffect(() => {
+  //     socket.on("receive_message", (data) => {
+  //       setMessageReceived(data.message);
+  //     });
+  //   });
+  let decodedUserToken: CustomJwtPayload | null = null;
+  const currentUserToken = localStorage.getItem('id_token')
+  if (currentUserToken) { 
+    decodedUserToken = jwtDecode<CustomJwtPayload>(currentUserToken)
+  }
+  const currentUser = decodedUserToken?.username
 
-    // useEffect(() => {
-    //     socket.on("receive_message",(data)=>{setMessageReceived(data.message)})
-    // })
+  const [recipientID, setRecipientID] = useState(0);
+  const [recipientName, setRecipientName] = useState("");
 
-    return (
-        <div className="containerbody">
-        <section className="sidebar">
-            <h2 className="friends pb-5">
-                Friends
-            </h2>
-            {users && users.map((user) => (
-                <div className="row align-center mb-5" key={user.id}>
-                    <div className="people col-md-6">
-                        <h3>{user.username}</h3>
+  function getUser(id: number, name: string) {
+    setRecipientID(id);
+    setRecipientName(name);
+  }
 
+  return (
+    <>
+      <div className="container mt-5">
+        <h2 className="pb-5 text-center">Check out all your friends!</h2>
+
+        <div className="row">
+          {/* Left Column - Users */}
+          <div className="col-md-4">
+            <section className="card p-3">
+              <h4>Users</h4>
+              {decodedUserToken && users &&
+                users
+                .filter ((user) => user.username !== currentUser)
+                .map((user) => (
+                  <div
+                    className="d-flex justify-content-start align-items-center mb-3"
+                    key={user.id}
+                    data-id={user.id}
+                  >
+                    <div>
+                      <h6
+                        onClick={() =>
+                          user.id &&
+                          user.username &&
+                          getUser(user.id, user.username)
+                        }
+                      >
+                        {user.id}. {user.username}
+                      </h6>
                     </div>
-                    {/* <div className="col-md-6">
-                        <h4><a href={`mailto:${user.email}`}>{user.email}</a></h4>
-                    </div> */}
-                </div>
-            ))}
-        </section>
-        <section className="statusbar">
-            <h2>Status</h2>
-        </section>
-        <section className="chat">
-            <p>write function sockeit.o in here</p>
-            
-            <div className="chatbox"></div>
-        </section>
-        <section className="searchbox"></section>
-        </div>
-        // <>
-        //     <section className='container'>
-        //         <section>
-        //         <article className='allUsers'>
+                  </div>
+                ))}
+            </section>
+          </div>
 
-        //         </article>
-        //         </section>
-        //         <section className='mainbodyforchatroom'>
-        //         <header></header>
-        //         <main></main>
-        //         <footer></footer>
-        //         </section>
-        //     </section>
-        // </>
-    );
+          {/* Right Column - Chatroom */}
+          {recipientID !== 0 ? (
+            <div className="col-md-8">
+              <section className="card">
+                <header className="card-header text-center">
+                  (Placeholder for who you are chatting with)
+                </header>
+                <main
+                  className="card-body chat-box overflow-auto"
+                  id="chatBox"
+                  style={{ height: "400px" }}
+                >
+                  {/* Chat messages go here */}
+                  <div className="message mb-3">
+                    <strong>{recipientName}:</strong> Hello! (placeholder text)
+                  </div>
+                </main>
+                <footer className="card-footer">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Type your message.."
+                    />
+                    <button className="btn btn-primary">Send</button>
+                  </div>
+                </footer>
+              </section>
+            </div>
+          ) : (
+            <>
+              <h1>No User Selected</h1>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="text-center mt-5">
+        Created by Mike, Ryan, Jenny, and Adarsh
+      </footer>
+    </>
+  );
 };
 
 export default UserList;

@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <div className="display-flex justify-space-between align-center py-2 px-5">
       <h1>
-        WhatsUp!
+        What's Up
       </h1>
       <div>
         {
