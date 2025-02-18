@@ -7,11 +7,7 @@ import sequelize from './config/connection.js';
 import routes from './routes/index.js';
 import {Server} from 'socket.io';
 import http from 'http';
-<<<<<<< HEAD
-import cors from 'cors';
-=======
 import cors from 'cors'
->>>>>>> 76ff1bf2f471ce9a16673f8b104c04929001ef1d
 
 
 const app = express();

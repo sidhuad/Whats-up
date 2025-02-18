@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
-<<<<<<< HEAD
-// import { addMessage,  getConversationID} from "../../../server/src/messager/messager";
-=======
-import {
-  addMessage,
-  getConversationID,
-} from "../../../server/src/controller/messagerController";
->>>>>>> 76ff1bf2f471ce9a16673f8b104c04929001ef1d
+// import {
+//   addMessage,
+//   getConversationID,
+// } from "../../../server/src/controller/messagerController";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
