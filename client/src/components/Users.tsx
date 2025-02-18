@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from 'jwt-decode';
-// import io from "socket.io-client";
+import io from "socket.io-client";
 
 const socket = io("http://localhost:3001");
 
@@ -47,7 +47,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     if (message.trim() !== "" && recipientID !== 0) {
       const messageData = {
         sender: currentUser,
-        recipientID,
+        recipientID: recipientID,
         text: message,
       };
 
