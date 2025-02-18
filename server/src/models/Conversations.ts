@@ -43,6 +43,7 @@ export function ConversationsFactory(sequelize: Sequelize): typeof Conversations
     {
       tableName: 'conversations',  // Name of the table in PostgreSQL
       sequelize,// The Sequelize instance that connects to PostgreSQL
+      timestamps:false,
     //   hooks: {
     //     // Before creating a new user, hash and set the password
     //     beforeCreate: async (conversation: Conversations) => {

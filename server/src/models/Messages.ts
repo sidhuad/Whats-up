@@ -55,6 +55,7 @@ export function MessagesFactory(sequelize: Sequelize): typeof Messages {
     {
       tableName: 'messages',  // Name of the table in PostgreSQL
       sequelize,// The Sequelize instance that connects to PostgreSQL
+      timestamps:false,
     //   hooks: {
     //     // Before creating a new user, hash and set the password
     //     beforeCreate: async (user: User) => {
