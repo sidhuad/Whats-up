@@ -7,12 +7,12 @@ import sequelize from './config/connection.js';
 import routes from './routes/index.js';
 import {Server} from 'socket.io';
 import http from 'http';
-
+import cors from 'cors'
 
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
+app.use(cors())
 // creating http server anmd passing it to socket.io
 const server = http.createServer(app);
 
@@ -37,6 +37,7 @@ io.on("connection",(socket) => {
   })
 
   socket.on("send_message",(data) => {
+    console.log(data)
     socket.to(data.roomId).emit("receive_message",data);
   })
   
@@ -53,7 +54,7 @@ app.get('*', (_req, res) => {
 
 // * Change force to true to drop tables and recreate them
 sequelize.sync({force: false}).then(() => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
 });

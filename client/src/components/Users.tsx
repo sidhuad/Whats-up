@@ -114,6 +114,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                   >
                     <div>
                       <h6
+                      style={{ cursor: 'pointer'}}
                         onClick={() =>
                           user.id &&
                           user.username &&
