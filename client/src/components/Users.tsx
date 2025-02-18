@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from 'jwt-decode';
-// import io from "socket.io-client";
+import io from "socket.io-client";
 
 // const socket = io("http://localhost:3001");
 
@@ -17,6 +17,15 @@ function getUserID(id: number) {
   setRecipient(id);
 }
 
+// form.addEventListener('submit' , e => {
+//   e.preventDefault()
+//   const message = messageInput.value
+//   const room = roomInput.value
+
+//   if (message === '') return
+//   displayMessage(message)
+// })
+
 const UserList: React.FC<UserListProps> = ({ users }) => {
   //   const [room, setRoom] = useState("");
   //   const [message, setMessage] = useState("");
@@ -28,7 +37,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   //     }
   //   };
 
-  //   const sendMessage = () => socket.emit("send_message", { message, room });
+    // const sendMessage = () => socket.emit("send_message", { message, room });
 
   //   useEffect(() => {
   //     socket.on("receive_message", (data) => {
@@ -109,7 +118,11 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                       className="form-control"
                       placeholder="Type your message.."
                     />
-                    <button className="btn btn-primary">Send</button>
+                    <button 
+                      className="btn btn-primary" 
+                      type='submit'>
+                        Send
+                    </button>
                   </div>
                 </footer>
               </section>
