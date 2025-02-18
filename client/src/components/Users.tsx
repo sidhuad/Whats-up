@@ -14,6 +14,15 @@ interface CustomJwtPayload extends JwtPayload { username: string; }
 // const [recipient, setRecipient] = useState(0);
 
 
+// form.addEventListener('submit' , e => {
+//   e.preventDefault()
+//   const message = messageInput.value
+//   const room = roomInput.value
+
+//   if (message === '') return
+//   displayMessage(message)
+// })
+
 const UserList: React.FC<UserListProps> = ({ users }) => {
   let decodedUserToken: CustomJwtPayload | null = null;
   const currentUserToken = localStorage.getItem('id_token')
