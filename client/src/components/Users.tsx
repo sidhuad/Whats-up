@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from 'jwt-decode';
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 // const socket = io("http://localhost:3001");
 
@@ -108,7 +108,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                 >
                   {/* Chat messages go here */}
                   <div className="message mb-3">
-                    <strong>{recipientName}:</strong> Hello! (placeholder text)
+                    <strong>{recipientName}:</strong> `Hello! (placeholder text)`
                   </div>
                 </main>
                 <footer className="card-footer">
