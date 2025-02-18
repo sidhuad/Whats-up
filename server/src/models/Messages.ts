@@ -73,3 +73,5 @@ export function MessagesFactory(sequelize: Sequelize): typeof Messages {
 
   return Messages;  // Return the initialized User model
 }
+
+export default Messages;
