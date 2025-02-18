@@ -65,12 +65,13 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
         roomId,
         text: message,
       };
-
-      console.log();
       
-      socket.emit("send_message", messageData); // Emit event to backend
-      setMessages((prev) => [...prev, { sender: "You", text: message }]);
-      // setMessage(""); // Clear input field
+      console.log(`sending message:`,messageData.text);
+      // console.log(`messages ${messages}`);
+      
+      await socket.emit("send_message", messageData); // Emit event to backend
+      setMessages((prev) => [...prev, {sender: "you", text:messageData.text}]);
+      setMessage(""); // Clear input field
     }
   };
 
@@ -168,7 +169,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             >
               {/* Chat messages go here */}
               {messages.map((msg, index) => (
-                <div key={index}>{msg.text}</div>
+                <li key={index}>{msg.text}</li>
               ))}
             </main>
             <section className="card-footer">
