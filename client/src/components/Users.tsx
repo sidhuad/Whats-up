@@ -1,48 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from 'jwt-decode';
 import io from "socket.io-client";
 
-// const socket = io("http://localhost:3001");
+const socket = io("http://localhost:3001");
 
 // Define the props for the component
 interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
 interface CustomJwtPayload extends JwtPayload { username: string; }
-// const [recipient, setRecipient] = useState(0);
+const [recipient, setRecipient] = useState(0);
 
-function getUserID(id: number) {
-  setRecipient(id);
-}
+form.addEventListener('submit' , e => {
+  e.preventDefault()
+  const message = messageInput.value
+  const room = roomInput.value
 
-// form.addEventListener('submit' , e => {
-//   e.preventDefault()
-//   const message = messageInput.value
-//   const room = roomInput.value
-
-//   if (message === '') return
-//   displayMessage(message)
-// })
+  if (message === '') return
+  displayMessage(message)
+})
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
-  //   const [room, setRoom] = useState("");
-  //   const [message, setMessage] = useState("");
-  //   const [messageReceived, setMessageReceived] = useState("");
+    const [room, setRoom] = useState("");
+    const [message, setMessage] = useState("");
+    const [messageReceived, setMessageReceived] = useState("");
 
-  //   const joinRoom = () => {
-  //     if (room !== "") {
-  //       socket.emit("join_room", room);
-  //     }
-  //   };
+    const joinRoom = () => {
+      if (room !== "") {
+        socket.emit("join_room", room);
+      }
+    };
 
-    // const sendMessage = () => socket.emit("send_message", { message, room });
+    const sendMessage = () => socket.emit("send_message", { message, room });
 
-  //   useEffect(() => {
-  //     socket.on("receive_message", (data) => {
-  //       setMessageReceived(data.message);
-  //     });
-  //   });
+    useEffect(() => {
+      socket.on("receive_message", (data) => {
+        setMessageReceived(data.message);
+      });
+    });
   let decodedUserToken: CustomJwtPayload | null = null;
   const currentUserToken = localStorage.getItem('id_token')
   if (currentUserToken) { 
