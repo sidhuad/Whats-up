@@ -8,6 +8,7 @@ const SignUp = () => {
 
   // State to manage the login form data
   const [signUpData, setSignUpData] = useState<UserLogin>({
+    name: '',
     username: '',
     email: '',
     password: ''
@@ -30,7 +31,7 @@ const SignUp = () => {
       const data = await signUp(signUpData);
       // If sign up is successful, call Auth.login to store the token in localStorage
       Auth.login(data.token);
-      alert('sign up funct done');
+      alert('sign up completed');
     } catch (err) {
       console.error('Failed to login', err);  // Log any errors that occur during sign up
     }
@@ -41,6 +42,16 @@ const SignUp = () => {
       <form className='form sign-up-form' onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         {/* Username input field */}
+        <div className="form-group">
+          <label>Name (Optional)</label>
+          <input 
+            className="form-input"
+            type='text'
+            name='name'
+            value={signUpData.name || ''}
+            onChange={handleChange}
+          />
+        </div>
         <div className="form-group">
           <label>Username</label>
           <input 

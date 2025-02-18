@@ -11,6 +11,8 @@ interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
 interface CustomJwtPayload extends JwtPayload { username: string; }
+// const [recipient, setRecipient] = useState(0);
+
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
   let decodedUserToken: CustomJwtPayload | null = null;
@@ -99,7 +101,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             <div className="col-md-8">
               <section className="card">
                 <header className="card-header text-center">
-                Chatting with {recipientName}
+                  Chatroom with {recipientName}
                 </header>
                 <main
                   className="card-body chat-box overflow-auto"
@@ -135,8 +137,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           )}
         </div>
       </div>
-
-      {/* Footer */}
+      
       <footer className="text-center mt-5">
         Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
