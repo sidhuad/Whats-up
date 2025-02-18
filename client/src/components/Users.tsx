@@ -169,7 +169,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             >
               {/* Chat messages go here */}
               {messages.map((msg, index) => (
-                <li key={index}>{msg.text}</li>
+                <div key={index}>{msg.text}</div>
               ))}
             </main>
             <section className="card-footer">
