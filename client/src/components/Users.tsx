@@ -28,17 +28,23 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
     []
   );
+  const [roomId, setRoomId] = useState("");
 
   function getUser(id: number, name: string) {
     setRecipientID(id);
     setRecipientName(name);
     setMessages([]); // Clear chat history when switching users
+    if (!currentUser) {
+      return null;
+    }    
   }
   const sendMessage = () => {
     if (message.trim() !== "" && recipientID !== 0) {
+      
       const messageData = {
         sender: currentUser,
-        recipientID: recipientID,
+        recipientID,
+        roomId,
         text: message,
       };
 
@@ -47,6 +53,26 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       setMessage(""); // Clear input field
     }
   };
+
+  // generating a chat room id
+  const chatRoomId = (currentUser:string, recipientID:number) => {
+    const loggedInUser = users?.find((user) =>  user.username === currentUser);
+    const currentUserId = loggedInUser?.id;
+    if (!currentUserId) {
+      return null;
+    }
+    return currentUserId < recipientID? `${currentUserId}_${recipientID}`:`${recipientID}_${currentUserId}`
+  }
+
+  useEffect(() => {
+    
+    if(!currentUser || recipientID === 0) return;
+
+    const roomId = chatRoomId(currentUser,recipientID);
+    if (roomId) setRoomId(roomId);
+    console.log(`room id client side ${roomId}`);
+
+  },[recipientID])
 
   // Listen for incoming messages
   useEffect(() => {
@@ -62,6 +88,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     return () => {
       socket.off("receive_message"); // Clean up event listener
     };
+    
   }, [recipientID]);
 
   return (
