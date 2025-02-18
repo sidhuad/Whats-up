@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from 'jwt-decode';
-// import io from "socket.io-client";
+import io from "socket.io-client";
 
 // const socket = io("http://localhost:3001");
 
@@ -10,6 +10,20 @@ interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
 interface CustomJwtPayload extends JwtPayload { username: string; }
+// const [recipient, setRecipient] = useState(0);
+
+function getUserID(id: number) {
+  setRecipient(id);
+}
+
+// form.addEventListener('submit' , e => {
+//   e.preventDefault()
+//   const message = messageInput.value
+//   const room = roomInput.value
+
+//   if (message === '') return
+//   displayMessage(message)
+// })
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
   //   const [room, setRoom] = useState("");
@@ -22,7 +36,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   //     }
   //   };
 
-  //   const sendMessage = () => socket.emit("send_message", { message, room });
+    // const sendMessage = () => socket.emit("send_message", { message, room });
 
   //   useEffect(() => {
   //     socket.on("receive_message", (data) => {
@@ -84,7 +98,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             <div className="col-md-8">
               <section className="card">
                 <header className="card-header text-center">
-                  (Placeholder for who you are chatting with)
+                  Chatroom with {recipientName}
                 </header>
                 <main
                   className="card-body chat-box overflow-auto"
@@ -103,7 +117,11 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                       className="form-control"
                       placeholder="Type your message.."
                     />
-                    <button className="btn btn-primary">Send</button>
+                    <button 
+                      className="btn btn-primary" 
+                      type='submit'>
+                        Send
+                    </button>
                   </div>
                 </footer>
               </section>
@@ -115,8 +133,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           )}
         </div>
       </div>
-
-      {/* Footer */}
+      
       <footer className="text-center mt-5">
         Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
