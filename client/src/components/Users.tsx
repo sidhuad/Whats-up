@@ -13,23 +13,6 @@ interface UserListProps {
 interface CustomJwtPayload extends JwtPayload { username: string; }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
-  //   const [room, setRoom] = useState("");
-  //   const [message, setMessage] = useState("");
-  //   const [messageReceived, setMessageReceived] = useState("");
-
-  //   const joinRoom = () => {
-  //     if (room !== "") {
-  //       socket.emit("join_room", room);
-  //     }
-  //   };
-
-  //   const sendMessage = () => socket.emit("send_message", { message, room });
-
-  //   useEffect(() => {
-  //     socket.on("receive_message", (data) => {
-  //       setMessageReceived(data.message);
-  //     });
-  //   });
   let decodedUserToken: CustomJwtPayload | null = null;
   const currentUserToken = localStorage.getItem('id_token')
   if (currentUserToken) { 
@@ -162,3 +145,22 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 };
 
 export default UserList;
+
+// is i have to use this code later, i would need to paste it under line 15 bc that's where it was originally
+  //   const [room, setRoom] = useState("");
+  //   const [message, setMessage] = useState("");
+  //   const [messageReceived, setMessageReceived] = useState("");
+
+  //   const joinRoom = () => {
+  //     if (room !== "") {
+  //       socket.emit("join_room", room);
+  //     }
+  //   };
+
+  //   const sendMessage = () => socket.emit("send_message", { message, room });
+
+  //   useEffect(() => {
+  //     socket.on("receive_message", (data) => {
+  //       setMessageReceived(data.message);
+  //     });
+  //   });
