@@ -1707,6 +1707,8 @@ form [type='radio'] {
   }
 }
 .containerbody {
+  margin-top: 0%;
+  top: 0;
   display: flex;
   align-items: flex-start; /* Ensures vertical alignment */
   justify-content: flex-start; /* Aligns elements to the left */
@@ -1716,7 +1718,7 @@ form [type='radio'] {
   position: fixed;
   left: 0;
   top: 50;
-  width: 15%;
+  width: fit-content;
   height: 80vh;
   background: white;
   border: 3px solid black;
@@ -1730,25 +1732,22 @@ form [type='radio'] {
   border: 3px solid black;
   border-radius: 20px;
   box-shadow: 0px black;
-  justify-content: center;
   padding: 20px;
   align-items: center;
   justify-content: center;
   overflow-y: auto;
-  align-items: center;
-  justify-content: center;
+  width: fit-content;
   font-family: 'Patrick Hand', cursive;
 } .people {
   margin-top: 10px;
   border: 3px solid black;
   border-radius: 20px;
   box-shadow: 0px black;
+  align-items: center;
   justify-content: center;
-  margin-left: 20px;
   font-size: 10px;
-  width: auto;
-}
 
+}
 /* Hand-drawn button style */
 button {
   background: white;
@@ -1781,11 +1780,11 @@ button {
   font-family: 'Patrick Hand', cursive;
 }
 .chat {
-  position: relative;
   margin-top: 5%;
+  position: relative;
   left: 0;
   width: 70%;
-  height: 70vh;
+  height: 65vh;
   background: white;
   border: 3px solid black;
   border-radius: 20px;

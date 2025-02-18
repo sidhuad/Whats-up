@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import type { UserData } from "../interfaces/UserData";
-import { type JwtPayload, jwtDecode } from 'jwt-decode';
+import { type JwtPayload, jwtDecode } from "jwt-decode";
 import io from "socket.io-client";
 
 const socket = io("http://localhost:3001");
@@ -10,26 +10,17 @@ const socket = io("http://localhost:3001");
 interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
-interface CustomJwtPayload extends JwtPayload { username: string; }
-// const [recipient, setRecipient] = useState(0);
-
-
-// form.addEventListener('submit' , e => {
-//   e.preventDefault()
-//   const message = messageInput.value
-//   const room = roomInput.value
-
-//   if (message === '') return
-//   displayMessage(message)
-// })
+interface CustomJwtPayload extends JwtPayload {
+  username: string;
+}
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
   let decodedUserToken: CustomJwtPayload | null = null;
-  const currentUserToken = localStorage.getItem('id_token')
-  if (currentUserToken) { 
-    decodedUserToken = jwtDecode<CustomJwtPayload>(currentUserToken)
+  const currentUserToken = localStorage.getItem("id_token");
+  if (currentUserToken) {
+    decodedUserToken = jwtDecode<CustomJwtPayload>(currentUserToken);
   }
-  const currentUser = decodedUserToken?.username
+  const currentUser = decodedUserToken?.username;
 
   const [recipientID, setRecipientID] = useState(0);
   const [recipientName, setRecipientName] = useState("");
@@ -54,6 +45,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
         sender: currentUser,
         recipientID,
         roomId,
+
         text: message,
       };
 
@@ -87,10 +79,13 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   useEffect(() => {
     socket.on("receive_message", (data) => {
       if (data.recipientID === recipientID) {
-        setMessages((prev) => [...prev, { sender: data.sender, text: data.text }]);
+        setMessages((prev) => [
+          ...prev,
+          { sender: data.sender, text: data.text },
+        ]);
       }
     });
-  
+
     return () => {
       socket.off("receive_message"); // Clean up event listener
     };
@@ -98,106 +93,105 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   }, [recipientID]);
 
   return (
-    <>
-      <div className="container mt-5">
-        <h2 className="pb-5 text-center">Check out all your friends!</h2>
+    <div>
+      <div className="containerbody mt-5">
+        <section className="sidebar">
+          <h2 className="friends">Friends!</h2>
 
-        <div className="row">
           {/* Left Column - Users */}
           <div className="col-md-4">
-            <section className="card p-3">
-              <h4>Users</h4>
-              {decodedUserToken && users &&
+            <section className="p-3">
+              {/* <h4>Users</h4> */}
+              {decodedUserToken &&
+                users &&
                 users
-                .filter ((user) => user.username !== currentUser)
-                .map((user) => (
-                  <div
-                    className="d-flex justify-content-start align-items-center mb-3"
-                    key={user.id}
-                    data-id={user.id}
-                  >
-                    <div>
-                      <h6
-                        onClick={() =>
-                          user.id &&
-                          user.username &&
-                          getUser(user.id, user.username)
-                        }
-                      >
-                        {user.id}. {user.username}
-                      </h6>
+                  .filter((user) => user.username !== currentUser)
+                  .map((user) => (
+                    <div
+                      className="d-flex justify-content-start align-items-center mb-3"
+                      key={user.id}
+                      data-id={user.id}
+                    >
+                        <div
+                          onClick={() =>
+                            user.id &&
+                            user.username &&
+                            getUser(user.id, user.username)
+                          }
+                        >
+                          <h6>{user.username}</h6>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
             </section>
           </div>
-
-          {/* Right Column - Chatroom */}
-          {recipientID !== 0 ? (
-            <div className="col-md-8">
-              <section className="card">
-                <header className="card-header text-center">
-                  Chatroom with {recipientName}
-                </header>
-                <main
-                  className="card-body chat-box overflow-auto"
-                  id="chatBox"
-                  style={{ height: "400px" }}
-                >
-                  {/* Chat messages go here */}
-                  {messages.map((msg, index) => (
-                    <div key={index} className="message mb-3">
-                    <strong>{msg.sender}:</strong> {msg.text}
-                    </div>
-                ))}
-                </main>
-                <footer className="card-footer">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Type your message.."
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                    />
-                    <button className="btn btn-primary" onClick={sendMessage}>Send</button>
-                  </div>
-                </footer>
-              </section>
-            </div>
-          ) : (
-            <>
-              <h1>No User Selected</h1>
-            </>
-          )}
-        </div>
+        </section>
+        <section className="statusbar">Status</section>
+        {/* Right Column - Chatroom */}
+        {recipientID !== 0 ? (
+          <section className="chat">
+            <header className="card-header text-center">
+              Chatroom with {recipientName}
+            </header>
+            <main
+              className="card-body chat-box overflow-auto"
+              id="chatBox"
+              style={{ height: "400px" }}
+            >
+              {/* Chat messages go here */}
+              {messages.map((msg, index) => (
+                <div key={index} className="message mb-3">
+                  <strong>{msg.sender}:</strong> {msg.text}
+                </div>
+              ))}
+            </main>
+            <section className="card-footer">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="chatbox form-control"
+                  placeholder="Type your message.."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                />
+                <button className="button btn-primary" onClick={sendMessage}>
+                  Send
+                </button>
+              </div>
+            </section>
+          </section>
+        ) : (
+          <>
+            <h1 className="chat">No User Selected</h1>
+          </>
+        )}
       </div>
-      
-      <footer className="text-center mt-5">
+
+      {/* <footer className="text-center mt-5">
         Created by Mike, Ryan, Jenny, and Adarsh
-      </footer>
-    </>
+      </footer> */}
+    </div>
   );
 };
 
 export default UserList;
 
-// is i have to use this code later, i would need to paste it under line 15 bc that's where it was originally
-  //   const [room, setRoom] = useState("");
-  //   const [message, setMessage] = useState("");
-  //   const [messageReceived, setMessageReceived] = useState("");
+// if i have to use this code later, i would need to paste it under line 15 bc that's where it was originally
+//   const [room, setRoom] = useState("");
+//   const [message, setMessage] = useState("");
+//   const [messageReceived, setMessageReceived] = useState("");
 
-  //   const joinRoom = () => {
-  //     if (room !== "") {
-  //       socket.emit("join_room", room);
-  //     }
-  //   };
+//   const joinRoom = () => {
+//     if (room !== "") {
+//       socket.emit("join_room", room);
+//     }
+//   };
 
-  //   const sendMessage = () => socket.emit("send_message", { message, room });
+//   const sendMessage = () => socket.emit("send_message", { message, room });
 
-  //   useEffect(() => {
-  //     socket.on("receive_message", (data) => {
-  //       setMessageReceived(data.message);
-  //     });
-  //   });
+//   useEffect(() => {
+//     socket.on("receive_message", (data) => {
+//       setMessageReceived(data.message);
+//     });
+//   });
