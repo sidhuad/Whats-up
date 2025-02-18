@@ -20,7 +20,8 @@ const server = http.createServer(app);
 const io = new Server(server,{
   cors:{
     // client side address.
-    origin: `http://localhost:3000`
+    origin: `http://localhost:3000`,
+    methods: ["GET","POST"]
   }
 });
 
@@ -30,12 +31,13 @@ app.use(express.static('../client/dist'));
 io.on("connection",(socket) => {
   console.log(`User Connected ${socket.id}`);
 
-  socket.on("join_room",(data) => {
-    socket.join(data);
+  socket.on("join_room",(roomId) => {
+    socket.join(roomId);
+    console.log(`room id is ${roomId}`);
   })
 
   socket.on("send_message",(data) => {
-    socket.to(data.room).emit("receive_message",data);
+    socket.to(data.roomId).emit("receive_message",data);
   })
   
 })
