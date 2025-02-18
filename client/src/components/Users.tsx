@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
 import io from "socket.io-client";
@@ -104,26 +103,24 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
               {decodedUserToken &&
                 users &&
                 users
-                .filter ((user) => user.username !== currentUser)
-                .map((user) => (
-                  <div
-                    className="d-flex justify-content-start align-items-center mb-3"
-                    key={user.id}
-                    data-id={user.id}
-                  >
-                    <div>
-                      <h6
-                        onClick={() =>
-                          user.id &&
-                          user.username &&
-                          getUser(user.id, user.username)
-                        }
-                      >
-                        {user.id}. {user.username}
-                      </h6>
+                  .filter((user) => user.username !== currentUser)
+                  .map((user) => (
+                    <div
+                      className="d-flex justify-content-start align-items-center mb-3"
+                      key={user.id}
+                      data-id={user.id}
+                    >
+                        <div
+                          onClick={() =>
+                            user.id &&
+                            user.username &&
+                            getUser(user.id, user.username)
+                          }
+                        >
+                          <h6>{user.username}</h6>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
             </section>
           </div>
         </section>
@@ -168,10 +165,10 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           </>
         )}
       </div>
-      
-      <footer className="text-center mt-5">
+
+      {/* <footer className="text-center mt-5">
         Created by Mike, Ryan, Jenny, and Adarsh
-      </footer>
+      </footer> */}
     </div>
   );
 };

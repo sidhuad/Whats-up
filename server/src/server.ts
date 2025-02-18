@@ -5,76 +5,55 @@ import path from 'node:path';
 const root = process.cwd();
 import sequelize from './config/connection.js';
 import routes from './routes/index.js';
-import { Server } from 'socket.io';
+import {Server} from 'socket.io';
 import http from 'http';
-import Message from '../src/models/Messages.js'; // Import Message model
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Creating HTTP server and passing it to socket.io
+// creating http server anmd passing it to socket.io
 const server = http.createServer(app);
 
-// Initialize socket.io with HTTP server
-const io = new Server(server, {
-  cors: {
-    // Client-side address
+//intialize socket.io with http server
+const io = new Server(server,{
+  cors:{
+    // client side address.
     origin: `http://localhost:3000`,
-    methods: ['GET', 'POST'],
-  },
+    methods: ["GET","POST"]
+  }
 });
 
 // Serves static files in the entire client's dist folder
 app.use(express.static('../client/dist'));
 
-io.on('connection', (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+io.on("connection",(socket) => {
+  console.log(`User Connected ${socket.id}`);
 
-  // When a user joins a room
-  socket.on('join_room', async (roomId) => {
+  socket.on("join_room",(roomId) => {
     socket.join(roomId);
-    console.log(`User joined room: ${roomId}`);
+    console.log(`room id is ${roomId}`);
+  })
 
-    try {
-      // Fetch previous messages for the chatroom and send to the user
-      const previousMessages = await Message.findAll({ where: { roomId } });
-      socket.emit('previous_messages', previousMessages);
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-    }
-  });
-
-  // Handling message sending
-  socket.on('send_message', async (data) => {
-    try {
-      // Save the message to the database
-      const newMessage = await Message.create({
-        sender: data.sender,
-        recipientID: data.recipientID,
-        roomId: data.roomId,
-        text: data.text,
-      });
-
-      // Emit the new message to the room
-      io.to(data.roomId).emit('receive_message', newMessage);
-    } catch (error) {
-      console.error('Error saving message:', error);
-    }
-  });
-});
+  socket.on("send_message",(data) => {
+    socket.to(data.roomId).emit("receive_message",data);
+  })
+  
+})
 
 // Middleware to parse incoming requests
 app.use(express.json());
 app.use(routes);
 
-// Wildcard route to serve the index.html file
+// Wild card route to serve the index.html file
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(root, '../client/dist/index.html'));
+    res.sendFile(path.join(root, '../client/dist/index.html'));
 });
 
-// Sync database and start server
-sequelize.sync({ force: false }).then(() => {
-  server.listen(PORT, () => {
+// * Change force to true to drop tables and recreate them
+sequelize.sync({force: false}).then(() => {
+  app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
 });
