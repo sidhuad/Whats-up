@@ -4,8 +4,8 @@ import { Conversations } from "../models/Conversations";
 export const getConversationID = async (sender: number, reciever: number) => {
   const convID = await Conversations.findOne({
     where: {
-      sender_id: sender,
-      receiver_id: reciever,
+      sender_id: sender || reciever,
+      receiver_id: reciever || sender,
     },
   });
 
