@@ -284,7 +284,7 @@ textarea {
  * 2. Correct the outline style in Safari.
  */
 [type='search'] {
-  -webkit-appearance: textfield;
+  /* -webkit-appearance: textfield; */
   /* 1 */
   outline-offset: -2px;
   /* 2 */
@@ -1127,8 +1127,8 @@ form .form-textarea {
 }
 
 form select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 98%;
@@ -1705,4 +1705,73 @@ form [type='radio'] {
   .align-content-center-xl {
     align-content: center;
   }
+}
+/* Sidebar for user list */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 50;
+  width: 10%;
+  height: 80vh;
+  background: white;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: -4px 0px 0px black;
+  padding: 20px;
+  margin-left: 20px;
+  overflow-y: auto;
+
+}
+.friends{
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  justify-content: center;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Patrick Hand', cursive;
+}
+.people {
+  margin-top: 10px;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  justify-content: center;
+
+}
+
+/* Hand-drawn button style */
+button {
+  background: white;
+  border: 3px solid black;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  font-family: 'Patrick Hand', cursive;
+  box-shadow: 4px 4px 0px black;
+  transition: all 0.2s ease;
+}
+/* Status bar beneath the sidebar */
+.statusbar {
+  position: fixed;
+  left: 0;
+  /* top: 10px; */
+  bottom: 50px;
+  width: 10%;
+  height: 70px;
+  background: rgb(104, 235, 122);
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  padding: 20px;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-family: 'Patrick Hand', cursive;
 }

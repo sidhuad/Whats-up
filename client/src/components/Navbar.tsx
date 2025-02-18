@@ -19,9 +19,9 @@ const Navbar = () => {
   }, [loginCheck]);  // Dependency array ensures useEffect runs when loginCheck changes
 
   return (
-    <div className="display-flex justify-space-between align-center py-2 px-5 mint-green">
+    <div className="display-flex justify-space-between align-center py-2 px-5">
       <h1>
-        Authentication Review
+        WhatsUp!
       </h1>
       <div>
         {
