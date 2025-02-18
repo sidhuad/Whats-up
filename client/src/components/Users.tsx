@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import {
+  addMessage,
+  getConversationID,
+} from "../../../server/src/messager/messager";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
@@ -28,7 +32,8 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
     []
   );
-  const [roomId, setRoomId] = useState("");
+  const [roomId, setRoomId] = useState(0);
+  const [currentUserId, setCurrentUserId] = useState(0);
 
   function getUser(id: number, name: string) {
     setRecipientID(id);
@@ -36,11 +41,10 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     setMessages([]); // Clear chat history when switching users
     if (!currentUser) {
       return null;
-    }    
+    }
   }
   const sendMessage = () => {
     if (message.trim() !== "" && recipientID !== 0) {
-      
       const messageData = {
         sender: currentUser,
         recipientID,
@@ -55,25 +59,42 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     }
   };
 
-  // generating a chat room id
-  const chatRoomId = (currentUser:string, recipientID:number) => {
-    const loggedInUser = users?.find((user) =>  user.username === currentUser);
-    const currentUserId = loggedInUser?.id;
-    if (!currentUserId) {
-      return null;
-    }
-    return currentUserId < recipientID? `${currentUserId}_${recipientID}`:`${recipientID}_${currentUserId}`
-  }
+  //   generating a chat room id
+  //   const chatRoomId = (currentUser: string, recipientID: number) => {
+  //     const loggedInUser = users?.find((user) => user.username === currentUser);
+  //     const userId = loggedInUser?.id;
+  //     if (!userId) {
+  //       return null;
+  //     }
+  //     setCurrentUserId(userId);
+  //     return userId < recipientID
+  //       ? `${userId}_${recipientID}`
+  //       : `${recipientID}_${userId}`;
+  //   };
+
+  //   useEffect(() => {
+  //     if (!currentUser || recipientID === 0) return;
+
+  //     const roomId = chatRoomId(currentUser, recipientID);
+  //     if (roomId) setRoomId(roomId);
+  //     console.log(`room id client side ${roomId}`);
+  //   }, [recipientID]);
 
   useEffect(() => {
-    
-    if(!currentUser || recipientID === 0) return;
+    async () => {
+      const loggedInUser = users?.find((user) => user.username === currentUser);
+      const userId = loggedInUser?.id;
+      if (!userId) {
+        return null;
+      }
+      setCurrentUserId(userId);
+      const newRoomId = await getConversationID(currentUserId, recipientID);
 
-    const roomId = chatRoomId(currentUser,recipientID);
-    if (roomId) setRoomId(roomId);
-    console.log(`room id client side ${roomId}`);
-
-  },[recipientID])
+      if (newRoomId) {
+        setRoomId(newRoomId);
+      }
+    };
+  }, [recipientID]);
 
   // Listen for incoming messages
   useEffect(() => {
@@ -89,7 +110,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     return () => {
       socket.off("receive_message"); // Clean up event listener
     };
-    
   }, [recipientID]);
 
   return (
@@ -105,26 +125,26 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
               {decodedUserToken &&
                 users &&
                 users
-                .filter ((user) => user.username !== currentUser)
-                .map((user) => (
-                  <div
-                    className="d-flex justify-content-start align-items-center mb-3"
-                    key={user.id}
-                    data-id={user.id}
-                  >
-                    <div>
-                      <h6
-                        onClick={() =>
-                          user.id &&
-                          user.username &&
-                          getUser(user.id, user.username)
-                        }
-                      >
-                        {user.id}. {user.username}
-                      </h6>
+                  .filter((user) => user.username !== currentUser)
+                  .map((user) => (
+                    <div
+                      className="d-flex justify-content-start align-items-center mb-3"
+                      key={user.id}
+                      data-id={user.id}
+                    >
+                      <div>
+                        <h6
+                          onClick={() =>
+                            user.id &&
+                            user.username &&
+                            getUser(user.id, user.username)
+                          }
+                        >
+                          {user.id}. {user.username}
+                        </h6>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
             </section>
           </div>
         </section>
@@ -169,7 +189,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           </>
         )}
       </div>
-      
+
       <footer className="text-center mt-5">
         Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
