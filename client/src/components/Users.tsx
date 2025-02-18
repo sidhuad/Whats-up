@@ -77,12 +77,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     
     if(!currentUser || recipientID === 0) return;
 
-    const roomId = chatRoomId(currentUser,recipientID);
-    if (roomId) setRoomId(roomId);
-    console.log(`room id client side ${roomId}`);
+    const newRoomId = chatRoomId(currentUser,recipientID);
+    if (newRoomId) setRoomId(newRoomId);
+    
 
   },[recipientID])
-
+  console.log(`room id client side ${roomId}`);
   // Listen for incoming messages
   useEffect(() => {
     socket.on("receive_message", (data) => {
