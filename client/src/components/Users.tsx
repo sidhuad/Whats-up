@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 // import { addMessage,  getConversationID} from "../../../server/src/messager/messager";
+=======
+import {
+  addMessage,
+  getConversationID,
+} from "../../../server/src/controller/messagerController";
+>>>>>>> 76ff1bf2f471ce9a16673f8b104c04929001ef1d
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
@@ -117,28 +124,29 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           {/* Left Column - Users */}
           <div className="col-md-4">
             <section className="p-3">
-              {/* <h4>Users</h4> */}
+              <h4>Users</h4>
               {decodedUserToken &&
                 users &&
                 users
-                  .filter((user) => user.username !== currentUser)
-                  .map((user) => (
-                    <div
-                      className="d-flex justify-content-start align-items-center mb-3"
-                      key={user.id}
-                      data-id={user.id}
-                    >
-                      <div>
-                        <h6
-                          onClick={() =>
-                            user.id &&
-                            user.username &&
-                            getUser(user.id, user.username)
-                          }
-                        >
-                          {user.id}. {user.username}
-                        </h6>
-                      </div>
+                .filter ((user) => user.username !== currentUser)
+                .map((user) => (
+                  <div
+                    className="d-flex justify-content-start align-items-center mb-3"
+                    key={user.id}
+                    data-id={user.id}
+                  >
+                    <div>
+                      <h6
+                      style={{ cursor: 'pointer'}}
+                        onClick={() =>
+                          user.id &&
+                          user.username &&
+                          getUser(user.id, user.username)
+                        }
+                      >
+                        {user.id}. {user.username}
+                      </h6>
+                    </div>
                     </div>
                   ))}
             </section>
