@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
-// import io from "socket.io-client";
+import io from "socket.io-client";
 
 const socket = io("http://localhost:3001");
 
@@ -10,9 +10,10 @@ const socket = io("http://localhost:3001");
 interface UserListProps {
   users: UserData[] | null; // users can be an array of UserData objects or null
 }
-interface CustomJwtPayload extends JwtPayload { username: string; }
+interface CustomJwtPayload extends JwtPayload {
+  username: string;
+}
 // const [recipient, setRecipient] = useState(0);
-
 
 // form.addEventListener('submit' , e => {
 //   e.preventDefault()
@@ -61,10 +62,13 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   useEffect(() => {
     socket.on("receive_message", (data) => {
       if (data.recipientID === recipientID) {
-        setMessages((prev) => [...prev, { sender: data.sender, text: data.text }]);
+        setMessages((prev) => [
+          ...prev,
+          { sender: data.sender, text: data.text },
+        ]);
       }
     });
-  
+
     return () => {
       socket.off("receive_message"); // Clean up event listener
     };
@@ -121,9 +125,9 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                   {/* Chat messages go here */}
                   {messages.map((msg, index) => (
                     <div key={index} className="message mb-3">
-                    <strong>{msg.sender}:</strong> {msg.text}
+                      <strong>{msg.sender}:</strong> {msg.text}
                     </div>
-                ))}
+                  ))}
                 </main>
                 <footer className="card-footer">
                   <div className="input-group">
@@ -135,7 +139,9 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                       onChange={(e) => setMessage(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                     />
-                    <button className="btn btn-primary" onClick={sendMessage}>Send</button>
+                    <button className="btn btn-primary" onClick={sendMessage}>
+                      Send
+                    </button>
                   </div>
                 </footer>
               </section>
@@ -158,20 +164,20 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 export default UserList;
 
 // is i have to use this code later, i would need to paste it under line 15 bc that's where it was originally
-  //   const [room, setRoom] = useState("");
-  //   const [message, setMessage] = useState("");
-  //   const [messageReceived, setMessageReceived] = useState("");
+//   const [room, setRoom] = useState("");
+//   const [message, setMessage] = useState("");
+//   const [messageReceived, setMessageReceived] = useState("");
 
-  //   const joinRoom = () => {
-  //     if (room !== "") {
-  //       socket.emit("join_room", room);
-  //     }
-  //   };
+//   const joinRoom = () => {
+//     if (room !== "") {
+//       socket.emit("join_room", room);
+//     }
+//   };
 
-  //   const sendMessage = () => socket.emit("send_message", { message, room });
+//   const sendMessage = () => socket.emit("send_message", { message, room });
 
-  //   useEffect(() => {
-  //     socket.on("receive_message", (data) => {
-  //       setMessageReceived(data.message);
-  //     });
-  //   });
+//   useEffect(() => {
+//     socket.on("receive_message", (data) => {
+//       setMessageReceived(data.message);
+//     });
+//   });
