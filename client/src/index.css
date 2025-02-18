@@ -193,7 +193,7 @@ button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button;
+-webkit-appearance: button;
 }
 
 /**
@@ -284,7 +284,7 @@ textarea {
  * 2. Correct the outline style in Safari.
  */
 [type='search'] {
-  -webkit-appearance: textfield;
+  /* -webkit-appearance: textfield; */
   /* 1 */
   outline-offset: -2px;
   /* 2 */
@@ -1127,8 +1127,8 @@ form .form-textarea {
 }
 
 form select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 98%;
@@ -1705,4 +1705,126 @@ form [type='radio'] {
   .align-content-center-xl {
     align-content: center;
   }
+}
+.containerbody {
+  display: flex;
+  align-items: flex-start; /* Ensures vertical alignment */
+  justify-content: flex-start; /* Aligns elements to the left */
+}
+/* Sidebar for user list */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 50;
+  width: 15%;
+  height: 80vh;
+  background: white;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: -4px 0px 0px black;
+  padding: 20px;
+  margin-left: 20px;
+  overflow-y: auto;
+
+} .friends {
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  justify-content: center;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Patrick Hand', cursive;
+} .people {
+  margin-top: 10px;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  justify-content: center;
+  margin-left: 20px;
+  font-size: 10px;
+  width: auto;
+}
+
+/* Hand-drawn button style */
+button {
+  background: white;
+  border: 3px solid black;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  font-family: 'Patrick Hand', cursive;
+  box-shadow: 4px 4px 0px black;
+  transition: all 0.2s ease;
+}
+/* Status bar beneath the sidebar */
+.statusbar {
+  position: fixed;
+  left: 0;
+  /* top: 10px; */
+  bottom: 50px;
+  width: 10%;
+  height: 70px;
+  background: rgb(104, 235, 122);
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  padding: 20px;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-family: 'Patrick Hand', cursive;
+}
+.chat {
+  position: relative;
+  margin-top: 5%;
+  left: 0;
+  width: 70%;
+  height: 70vh;
+  background: white;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  padding: 20px;
+  margin-left: 12%;
+  display:flex;
+  flex-direction: column; /* Ensures child elements stack vertically */
+  overflow: hidden;
+  
+} .chatbox {
+  position: absolute; /* Position relative to the .chat container */
+  height: 80px;
+  bottom: 10px; /* Places the chatbox at the bottom with a 10px gap */
+  left: 0;
+  right: 0; /* Makes the chatbox centered */
+  margin: 0 auto;
+  width: 95%; /* Takes full width of the .chat container */
+  background: white;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 0px black;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.searchbox {
+  position: relative;
+  left: 0;
+  top: 50;
+  width: 20%;
+  height: 80px;
+  background: white;
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: -2px 0px 0px black;
+  padding: 20px;
+  margin-left: 30px;
+  overflow-y: auto;
+
 }
