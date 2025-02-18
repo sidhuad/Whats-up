@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { addMessage,  getConversationID} from "../../../server/src/messager/messager";
+// import { addMessage,  getConversationID} from "../../../server/src/messager/messager";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
