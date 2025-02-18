@@ -43,13 +43,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     setRecipientID(id);
     setRecipientName(name);
   }
-
-  const [recipient, setRecipient] = useState(0);
-
-  function getUserID(id: number) {
-    setRecipient(id);
-  }
-
+  
   return (
     <>
       <div className="container mt-5">
