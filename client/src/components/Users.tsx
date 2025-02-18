@@ -65,13 +65,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
         roomId,
         text: message,
       };
+
+      console.log();
       
-      console.log(`sending message:`,messageData.text);
-      // console.log(`messages ${messages}`);
-      
-      await socket.emit("send_message", messageData); // Emit event to backend
-      setMessages((prev) => [...prev, {sender: "you", text:messageData.text}]);
-      setMessage(""); // Clear input field
+      socket.emit("send_message", messageData); // Emit event to backend
+      setMessages((prev) => [...prev, { sender: "You", text: message }]);
+      // setMessage(""); // Clear input field
     }
   };
 

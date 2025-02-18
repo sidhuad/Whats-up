@@ -28,6 +28,8 @@ io.on("connection",(socket) => {
     console.log(`room id is ${roomId}`);
   })
   socket.on("send_message",(data) => {
+    console.log("sending message to room:",data.roomId);
+    console.log("Message data:",data.text);
     console.log("server side sending message to room:",data.roomId);
     console.log(" server side Message data:",data.text);
     socket.to(data.roomId).emit("receive_message",data);
