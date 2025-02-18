@@ -26,15 +26,16 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     // })
 
     return (
-        <div className="loggedbody">
+        <div className="containerbody">
         <section className="sidebar">
             <h2 className="friends pb-5">
-                Friends Only
+                Friends
             </h2>
             {users && users.map((user) => (
                 <div className="row align-center mb-5" key={user.id}>
                     <div className="people col-md-6">
                         <h3>{user.username}</h3>
+
                     </div>
                     {/* <div className="col-md-6">
                         <h4><a href={`mailto:${user.email}`}>{user.email}</a></h4>
@@ -45,6 +46,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
         <section className="statusbar">
             <h2>Status</h2>
         </section>
+        <section className="chat">
+            <p>write function sockeit.o in here</p>
+            
+            <div className="chatbox"></div>
+        </section>
+        <section className="searchbox"></section>
         </div>
         // <>
         //     <section className='container'>
