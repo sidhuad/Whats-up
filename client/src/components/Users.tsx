@@ -6,7 +6,7 @@ import io from "socket.io-client";
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-const socket = io("http://localhost:3001");
+const socket = io("https://whats-up-7ihm.onrender.com");
 
 
 // Define the props for the component
