@@ -54,7 +54,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   function getUser(id: number, name: string) {
     setRecipientID(id);
     setRecipientName(name);
-    setMessages([]); // Clear chat history when switching users
+    // setMessages([]); // Clear chat history when switching users
     if (!currentUser) {
       return null;
     }    
