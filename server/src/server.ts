@@ -21,7 +21,8 @@ const io = new Server(server,{
   connectionStateRecovery:{},
   cors:{
     // client side address.
-    origin: `https://whats-up-7ihm.onrender.com`,
+    // origin: `https://whats-up-7ihm.onrender.com`,
+    origin: `http://localhost:3000`,
     methods: ["GET","POST"]
   }
 });

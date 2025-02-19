@@ -6,7 +6,9 @@ import io from "socket.io-client";
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-const socket = io("https://whats-up-7ihm.onrender.com");
+// const socket = io("https://whats-up-7ihm.onrender.com");
+const socket = io("http://localhost:3001");
+
 
 
 // Define the props for the component
@@ -53,7 +55,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   function getUser(id: number, name: string) {
     setRecipientID(id);
     setRecipientName(name);
-    // setMessages([]); // Clear chat history when switching users
+    setMessages([]); // Clear chat history when switching users
     if (!currentUser) {
       return null;
     }    
