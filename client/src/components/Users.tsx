@@ -121,13 +121,13 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     };
   }, [roomId]);
 
-
-  // function for hamburger menu
-  const sidebar = document.querySelector('.sidebar');
-
-  const toggleClass =()=>{
-    sidebar?.classList.toggle('open');
-  }
+  // Auto-scroll to the latest message
+  useEffect(() => {
+    const chatBox = document.getElementById("chatBox");
+    if (chatBox) {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <div>
@@ -179,11 +179,29 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             <main
               className="card-body chat-box overflow-auto"
               id="chatBox"
-              style={{ height: "400px" }}
+              style={{ height: "400px", overflowY: "auto" }}
             >
               {/* Chat messages go here */}
               {messages.map((msg, index) => (
-                <div key={index}>{msg.text}</div>
+                <div className="w-100 mb-2" key={index}>
+                  <div className="d-flex flex-column">
+                    <span className="text-muted small text-start">
+                      {msg.sender}
+                    </span>
+                    <div>
+                      <div
+                        className={`message p-2 rounded-3 ${
+                          msg.sender === currentUser
+                            ? "bg-success text-white"
+                            : "bg-light text-dark"
+                        }`}
+                        style={{ maxWidth: "70%" }}
+                      >
+                        {msg.text}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </main>
             <section className="card-footer">
