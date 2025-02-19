@@ -4,7 +4,10 @@ import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
 import io from "socket.io-client";
 
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 const socket = io("http://localhost:3001");
+
 
 // Define the props for the component
 interface UserListProps {
@@ -25,27 +28,27 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   const [recipientID, setRecipientID] = useState<number>(0);
   const [recipientName, setRecipientName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<{sender:string,text: string }[]>([]);
   const [roomId, setRoomId] = useState<string>("");
 
   // check if socket is connected
   useEffect(() => {
-    socket.on("connect", () => {
+    socket.on("connect",() => {
       console.log(`-------------------------------`);
       console.log(`socket is connected! ${socket.id}`);
       console.log(`-------------------------------`);
-    });
-    socket.on("disconnect", () => {
+            
+    })
+    socket.on("disconnect",() => {
       console.log(`socket is disconnected`);
-    });
+    })
     return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-    };
+      socket.off("connect")
+      socket.off("disconnect")
+    }
     // console.log(`socket connected?: ${socket.connected}`);
-  }, []);
+    
+  },[])
 
   function getUser(id: number, name: string) {
     setRecipientID(id);
@@ -53,49 +56,47 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     setMessages([]); // Clear chat history when switching users
     if (!currentUser) {
       return null;
-    }
+    }    
   }
   const sendMessage = async () => {
-    if (message.trim() !== "" && recipientID !== 0) {
+    if (message.trim() !== "" && recipientID !==0) {
+      
       const messageData = {
         sender: currentUser,
         recipientID,
         roomId,
         text: message,
       };
-
-      console.log(`sending message:`, messageData.text);
+      
+      console.log(`sending message:`,messageData.text);
       // console.log(`messages ${messages}`);
-
+      
       await socket.emit("send_message", messageData); // Emit event to backend
-      setMessages((prev) => [
-        ...prev,
-        { sender: "you", text: messageData.text },
-      ]);
+      setMessages((prev) => [...prev, {sender: "you", text:messageData.text}]);
       setMessage(""); // Clear input field
     }
   };
 
   // generating a chat room id
-  const chatRoomId = (currentUser: string, recipientID: number) => {
-    const loggedInUser = users?.find((user) => user.username === currentUser);
+  const chatRoomId = (currentUser:string, recipientID:number) => {
+    const loggedInUser = users?.find((user) =>  user.username === currentUser);
     const currentUserId = loggedInUser?.id;
     if (!currentUserId) {
       return null;
     }
-    return currentUserId < recipientID
-      ? `${currentUserId}_${recipientID}`
-      : `${recipientID}_${currentUserId}`;
-  };
+    return currentUserId < recipientID? `${currentUserId}_${recipientID}`:`${recipientID}_${currentUserId}`
+  }
 
   useEffect(() => {
-    if (!currentUser || recipientID === 0) return;
+    
+    if(!currentUser || recipientID === 0) return;
 
-    const newroomId = chatRoomId(currentUser, recipientID);
+    const newroomId = chatRoomId(currentUser,recipientID);
     if (newroomId) setRoomId(newroomId);
     console.log(`room id client side ${newroomId}`);
-    socket.emit("join_room", newroomId);
-  }, [recipientID]);
+    socket.emit("join_room",newroomId);
+
+  },[recipientID])
 
   // Listen for incoming messages
   useEffect(() => {
@@ -109,10 +110,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       console.log("Received message:", data);
 
       if (data.roomId === roomId) {
-        setMessages((prev) => [
-          ...prev,
-          { sender: data.sender, text: data.text },
-        ]);
+        setMessages((prev) => [...prev, { sender: data.sender, text: data.text }]);
       }
     };
 
@@ -123,43 +121,55 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     };
   }, [roomId]);
 
+
+  // function for hamburger menu
+  const sidebar = document.querySelector('.sidebar');
+
+  const toggleClass =()=>{
+    sidebar?.classList.toggle('open');
+  }
+
   return (
     <div>
-      <div className="containerbody mt-5">
-        <section className="sidebar">
-          <h2 className="friends">Friends!</h2>
+      <div className="containerbody d-flex row flex-wrap mt-5">
+        <div className="hamburger-menu">
+            <button className="hamburger-button" data-bs-toggle="offcanvas" data-bs-target="#sidebarnav" onClick={()=>toggleClass()}>&#9776;</button>
+        </div>
+        <section className="sidebar offcanvas offcanvas-start" id="sidebarnav">
+          <h2 className="friends offcanvas-title">Friends!</h2>
 
           {/* Left Column - Users */}
-          <div className="col-md-4">
-            <section className="p-3">
+          <div className="offcanvas-body">
+            <section className="">
               {/* <h4>Users</h4> */}
               {decodedUserToken &&
                 users &&
                 users
-                  .filter((user) => user.username !== currentUser)
-                  .map((user) => (
-                    <div
-                      className="d-flex justify-content-start align-items-center mb-3"
-                      key={user.id}
-                      data-id={user.id}
-                    >
-                      <div>
-                        <h6
-                          onClick={() =>
-                            user.id &&
-                            user.username &&
-                            getUser(user.id, user.username)
-                          }
-                        >
-                          {user.id}. {user.username}
-                        </h6>
-                      </div>
+                .filter ((user) => user.username !== currentUser)
+                .map((user) => (
+                  <div
+                    className="d-flex p-1"
+                    key={user.id}
+                    data-id={user.id}
+                  >
+                    <div>
+                      <ul className="userFriends"
+                        onClick={() =>
+                          user.id &&
+                          user.username &&
+                          getUser(user.id, user.username)
+                        }
+                      >
+                      <li>
+                      {user.username}
+                      </li>
+                      </ul>
                     </div>
-                  ))}
+                  </div>
+                ))}
             </section>
           </div>
         </section>
-        <section className="statusbar">{currentUser}</section>
         {/* Right Column - Chatroom */}
         {recipientID !== 0 ? (
           <section className="chat">
@@ -171,32 +181,9 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
               id="chatBox"
               style={{ height: "400px" }}
             >
+              {/* Chat messages go here */}
               {messages.map((msg, index) => (
-                <div className="w-100 mb-2" key={index}>
-                  <div className="d-flex flex-column">
-                    <span className="text-muted small text-start">
-                      {msg.sender}
-                    </span>
-                    <div
-                      className={`d-flex ${
-                        msg.sender === currentUser
-                          ? "justify-content-end"
-                          : "justify-content-start"
-                      }`}
-                    >
-                      <div
-                        className={`message p-2 rounded-3 ${
-                          msg.sender === currentUser
-                            ? "bg-success text-white"
-                            : "bg-light text-dark"
-                        }`}
-                        style={{ maxWidth: "70%" }}
-                      >
-                        {msg.text}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div key={index}>{msg.text}</div>
               ))}
             </main>
             <section className="card-footer">
@@ -209,7 +196,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                 />
-                <button className="button btn-primary" onClick={sendMessage}>
+                <button className="custmbutton btn-primary" onClick={sendMessage}>
                   Send
                 </button>
               </div>
@@ -220,9 +207,10 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             <h1 className="chat">No User Selected</h1>
           </>
         )}
+        <section className="statusbar">{currentUser}</section>
       </div>
-
-      <footer className="text-center mt-5">
+      
+      <footer className="foot text-center mt-5">
         Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
     </div>

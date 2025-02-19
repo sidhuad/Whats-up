@@ -5,7 +5,7 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
- html {
+html {
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -142,7 +142,7 @@ img {
   border-style: none;
 }
 
-.mint-green{
+.mint-green {
   background-color: #e3f9e5;
 }
 /* Forms
@@ -190,19 +190,19 @@ select {
  * Correct the inability to style clickable types in iOS and Safari.
  */
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
--webkit-appearance: button;
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
 }
 
 /**
  * Remove the inner border and padding in Firefox.
  */
 button::-moz-focus-inner,
-[type='button']::-moz-focus-inner,
-[type='reset']::-moz-focus-inner,
-[type='submit']::-moz-focus-inner {
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
@@ -211,9 +211,9 @@ button::-moz-focus-inner,
  * Restore the focus styles unset by the previous rule.
  */
 button:-moz-focusring,
-[type='button']:-moz-focusring,
-[type='reset']:-moz-focusring,
-[type='submit']:-moz-focusring {
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -263,8 +263,8 @@ textarea {
  * 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10.
  */
-[type='checkbox'],
-[type='radio'] {
+[type="checkbox"],
+[type="radio"] {
   box-sizing: border-box;
   /* 1 */
   padding: 0;
@@ -274,8 +274,8 @@ textarea {
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -283,7 +283,7 @@ textarea {
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-[type='search'] {
+[type="search"] {
   /* -webkit-appearance: textfield; */
   /* 1 */
   outline-offset: -2px;
@@ -293,7 +293,7 @@ textarea {
 /**
  * Remove the inner padding in Chrome and Safari on macOS.
  */
-[type='search']::-webkit-search-decoration {
+[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -359,7 +359,8 @@ body {
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   color: #1a1a1a;
 }
@@ -1157,13 +1158,13 @@ form .form-input.form-input-squared {
   border-radius: 0;
 }
 
-form [type='checkbox'],
-form [type='radio'] {
+form [type="checkbox"],
+form [type="radio"] {
   display: inline-block;
 }
 
-label form [type='checkbox'], label
-form [type='radio'] {
+label form [type="checkbox"],
+label form [type="radio"] {
   display: inline-block;
 }
 
@@ -1259,7 +1260,7 @@ form [type='radio'] {
   margin-right: -15px;
 }
 
-[class*='col-'] {
+[class*="col-"] {
   position: relative;
   width: 100%;
   padding-right: 15px;
@@ -1427,7 +1428,7 @@ form [type='radio'] {
 }
 
 /* col-md */
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 920px) {
   .col-md-auto {
     flex-grow: 1;
     flex-basis: 0;
@@ -1519,10 +1520,175 @@ form [type='radio'] {
   .align-content-center-md {
     align-content: center;
   }
+  /* custom styles */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .hamburger-menu{
+    display: block;
+    position: relative;
+    left: 30px;
+  }
+  .containerbody {
+    margin-top: 0%;
+    display: flex;
+    align-items: start; /* Ensures vertical alignment */
+    justify-content: flex-start; /* Aligns elements to the left */
+  }
+  .sidebar {
+    position: absolute;
+    left: 100px;
+    /* top: 50px; */
+    width: fit-content;
+    height: 60vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    display: none;
+    z-index: 999;
+  }
+  .sidebar.open{
+    display: block;
+    transform: translateX(0);
+  }
+
+  .friends {
+    border: 3px solid gray;
+    border-radius: 20px;
+    padding: 20px;
+    font-family: "Patrick Hand", cursive;
+    font-size: 25px;
+  }
+
+  .people {
+    margin-top: 10px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; /* Adjusted font size */
+  }
+
+  /* Hand-drawn button style */
+  .custmbutton {
+    background: gray;
+    color: black;
+    border: 3px solid gray;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: "Patrick Hand", cursive;
+    box-shadow: 0px 0px 18px gray;
+    transition: all 0.2s ease;
+    position: relative;
+    top: -13px;
+    border-radius: 10px;
+    margin-left: 4px;
+  }
+  .custmbutton:hover {
+    opacity: 0.5;
+  }
+
+  /* Status bar beneath the sidebar */
+  .statusbar {
+    position: relative;
+    margin: 0 auto;
+    left: 80px;
+    height: 70px;
+    background: rgb(104, 235, 122);
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 1.2em;
+    font-family: "Patrick Hand", cursive;
+  }
+
+  .chat {
+    position: relative;
+    left: 80px;
+    width: 60%;
+    height: 60vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    margin-left: 4%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chatbox {
+    position: relative;
+    height: 45px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 95%;
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    padding: 20px;
+  }
+  .searchbox {
+    position: relative;
+    left: 0;
+    top: 50;
+    width: 20%;
+    height: 80px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: -2px 0px 0px black;
+    padding: 20px;
+    margin-left: 30px;
+    overflow-y: auto;
+  }
+
+  .input-group {
+    display: flex;
+  }
+
+  .card-header {
+    font-size: 20px;
+  }
+
+  .foot {
+    position: relative;
+    font-size: 22px;
+  }
+
+  .userFriends {
+    border: 2px solid gray;
+    min-width: fit-content;
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 0px;
+  }
+
+  .userFriends:hover {
+    cursor: pointer;
+  }
+
+  .scrollable {
+    overflow-y: scroll;
+  }
 }
 
 /* col-lg */
-@media screen and (min-width: 992px) {
+@media (min-width: 920px) and (max-width: 992px) {
   .col-md-auto {
     flex-grow: 1;
     flex-basis: 0;
@@ -1614,10 +1780,171 @@ form [type='radio'] {
   .align-content-center-lg {
     align-content: center;
   }
+  /* custom styles */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .hamburger-menu{
+    display: none;
+  }
+  .containerbody {
+    margin-top: 0%;
+    display: flex;
+    align-items: start; /* Ensures vertical alignment */
+    justify-content: flex-start; /* Aligns elements to the left */
+  }
+  .sidebar {
+    position: relative;
+    /* left: 0; */
+    /* top: 50px; */
+    width: fit-content;
+    height: 60vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+  }
+
+  .friends {
+    border: 3px solid gray;
+    border-radius: 20px;
+    padding: 20px;
+    font-family: "Patrick Hand", cursive;
+  }
+
+  .people {
+    margin-top: 10px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; /* Adjusted font size */
+  }
+
+  /* Hand-drawn button style */
+  .custmbutton {
+    background: gray;
+    color: black;
+    border: 3px solid gray;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: "Patrick Hand", cursive;
+    box-shadow: 0px 0px 18px gray;
+    transition: all 0.2s ease;
+    position: relative;
+    top: -13px;
+    border-radius: 10px;
+    margin-left: 4px;
+  }
+  .custmbutton:hover {
+    opacity: 0.5;
+  }
+
+  /* Status bar beneath the sidebar */
+  .statusbar {
+    position: relative;
+    min-width: calc(1088px - 877px);
+    height: 70px;
+    background: rgb(104, 235, 122);
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 1.2em;
+    font-family: "Patrick Hand", cursive;
+  }
+
+  .chat {
+    position: relative;
+    left: 0;
+    width: 70%;
+    height: 60vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    margin-left: 4%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chatbox {
+    position: relative;
+    height: 80px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 95%;
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .searchbox {
+    position: relative;
+    left: 0;
+    top: 50;
+    width: 20%;
+    height: 80px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: -2px 0px 0px black;
+    padding: 20px;
+    margin-left: 30px;
+    overflow-y: auto;
+  }
+
+  .input-group {
+    display: flex;
+  }
+
+  .card-header {
+    font-size: 20px;
+  }
+
+  .foot {
+    position: relative;
+    left: 100px;
+    bottom: 65px;
+    font-size: 22px;
+  }
+
+  .userFriends {
+    border: 2px solid gray;
+    min-width: fit-content;
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 0px;
+  }
+
+  .userFriends:hover {
+    cursor: pointer;
+  }
+
+  .scrollable {
+    overflow-y: scroll;
+  }
 }
 
 /* col-xl */
-@media screen and (min-width: 1200px) {
+@media (min-width: 992px) {
   .col-xl-1 {
     flex: 0 0 8.33333%;
     max-width: 8.33333%;
@@ -1705,132 +2032,169 @@ form [type='radio'] {
   .align-content-center-xl {
     align-content: center;
   }
-}
-.containerbody {
-  margin-top: 0%;
-  top: 0;
-  display: flex;
-  align-items: flex-start; /* Ensures vertical alignment */
-  justify-content: flex-start; /* Aligns elements to the left */
-}
-/* Sidebar for user list */
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 50;
-  width: fit-content;
-  height: 80vh;
-  background: white;
-  border: 3px solid black;
-  border-radius: 20px;
-  box-shadow: -4px 0px 0px black;
-  padding: 20px;
-  margin-left: 20px;
-  overflow-y: auto;
+  /* custom styles */
 
-} .friends {
-  border: 3px solid black;
-  border-radius: 20px;
-  box-shadow: 0px black;
-  padding: 20px;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-  width: fit-content;
-  font-family: 'Patrick Hand', cursive;
-} .people {
-  margin-top: 10px;
-  border: 3px solid black;
-  border-radius: 20px;
-  box-shadow: 0px black;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-
-}
-/* Hand-drawn button style */
-button {
-  background: white;
-  border: 3px solid black;
-  padding: 10px 20px;
-  font-size: 1.2em;
-  cursor: pointer;
-  font-family: 'Patrick Hand', cursive;
-  box-shadow: 4px 4px 0px black;
-  transition: all 0.2s ease;
-}
-/* Status bar beneath the sidebar */
-.statusbar {
-  position: fixed;
-  left: 0;
-  /* top: 10px; */
-  bottom: 50px;
-  width: 10%;
-  height: 70px;
-  background: rgb(104, 235, 122);
-  border: 3px solid black;
-  border-radius: 20px;
-  box-shadow: 0px black;
-  padding: 20px;
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2em;
-  font-family: 'Patrick Hand', cursive;
-}
-.chat {
-  margin-top: 5%;
-  position: relative;
-  left: 0;
-  width: 70%;
-  height: 65vh;
-  background: white;
-  border: 3px solid black;
-  border-radius: 20px;
-  box-shadow: 0px black;
-  padding: 20px;
-  margin-left: 12%;
-  display:flex;
-  flex-direction: column; /* Ensures child elements stack vertically */
-  overflow: hidden;
-  
-} .chatbox {
-  position: absolute; /* Position relative to the .chat container */
-  height: 80px;
-  bottom: 10px; /* Places the chatbox at the bottom with a 10px gap */
-  left: 0;
-  right: 0; /* Makes the chatbox centered */
-  margin: 0 auto;
-  width: 95%; /* Takes full width of the .chat container */
-  background: white;
-  border: 3px solid black;
-  border-radius: 20px;
-  box-shadow: 0px black;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.searchbox {
-  position: relative;
-  left: 0;
-  top: 50;
-  width: 20%;
-  height: 80px;
-  background: white;
-  border: 3px solid black;
-  border-radius: 20px;
-  box-shadow: -2px 0px 0px black;
-  padding: 20px;
-  margin-left: 30px;
-  overflow-y: auto;
-
-}
-
-.message {
-  padding: 10px 15px;
-  border-radius: 15px;
-  word-wrap: break-word;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .hamburger-menu{
+    display: none;
+  }
+  .containerbody {
+    margin-top: 0%;
+    top: 0;
+    display: flex;
+    align-items: start; /* Ensures vertical alignment */
+    justify-content: flex-start; /* Aligns elements to the left */
+  }
+  /* Sidebar for user list */
+  .sidebar {
+    position: relative;
+    left: 0;
+    top: 50;
+    width: fit-content;
+    height: 65vh;
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    /* overflow-y: scroll; */
+  }
+  .friends {
+    border: 3px solid gray;
+    border-radius: 20px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    width: fit-content;
+    font-family: "Patrick Hand", cursive;
+  }
+  .people {
+    margin-top: 10px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+  /* Hand-drawn button style */
+  .custmbutton {
+    background: gray;
+    color: black;
+    border: 3px solid gray;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    font-family: "Patrick Hand", cursive;
+    box-shadow: 0px 0px 18px gray;
+    transition: all 0.2s ease;
+    position: relative;
+    top: -13px;
+    border-radius: 10px;
+    margin-left: 4px;
+  }
+  .custmbutton:hover {
+    opacity: 0.5;
+  }
+  /* Status bar beneath the sidebar */
+  .statusbar {
+    position: relative;
+    /* left: 134px; */
+    /* bottom: 30px; */
+    min-width: calc(1088px - 877px);
+    height: 70px;
+    background: rgb(104, 235, 122);
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    font-family: "Patrick Hand", cursive;
+    z-index: 999;
+  }
+  .chat {
+    position: relative;
+    left: 0;
+    width: 70%;
+    height: 65vh;
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    margin-left: 4%;
+    display: flex;
+    flex-direction: column; /* Ensures child elements stack vertically */
+    overflow: hidden;
+  }
+  .chatbox {
+    position: relative; /* Position relative to the .chat container */
+    height: 80px;
+    bottom: 10px; /* Places the chatbox at the bottom with a 10px gap */
+    left: 0;
+    right: 0; /* Makes the chatbox centered */
+    margin: 0 auto;
+    width: 95%; /* Takes full width of the .chat container */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .searchbox {
+    position: relative;
+    left: 0;
+    top: 50;
+    width: 20%;
+    height: 80px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: -2px 0px 0px black;
+    padding: 20px;
+    margin-left: 30px;
+    overflow-y: auto;
+  }
+  .input-group {
+    display: flex;
+  }
+  .card-header {
+    font-size: 20px;
+  }
+  .foot {
+    position: relative;
+    left: 100px;
+    bottom: 65px;
+    font-size: 22px;
+  }
+  .userFriends {
+    border: 2px solid gray;
+    min-width: fit-content;
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+    border-radius: 10px;
+    font-size: 18px;
+  }
+  .userFriends:hover {
+    cursor: pointer;
+  }
+  .scrollable {
+    overflow-y: scroll;
+  }
+  .message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
 }
