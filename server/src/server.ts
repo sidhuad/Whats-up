@@ -7,7 +7,7 @@ import sequelize from './config/connection.js';
 import routes from './routes/index.js';
 import {Server} from 'socket.io';
 import http from 'http';
-// import Messages from "./controller/messagerController";
+// import {Messages} from "./models/messagerController";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
