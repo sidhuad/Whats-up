@@ -16,11 +16,12 @@ const PORT = process.env.PORT || 3001;
 const server = http.createServer(app);
 
 //intialize socket.io with http server
+// http://localhost:3000
 const io = new Server(server,{
   connectionStateRecovery:{},
   cors:{
     // client side address.
-    origin: `http://localhost:3000`,
+    origin: `https://whats-up-7ihm.onrender.com`,
     methods: ["GET","POST"]
   }
 });

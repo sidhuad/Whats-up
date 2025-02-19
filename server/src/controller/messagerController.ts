@@ -17,6 +17,7 @@ export const getConversationID = async (sender: number, reciever: number) => {
   return;
 };
 
+// add some error handling here - try/catch
 export const addMessage = async (conversation_id: number, body: string) => {
   await Messages.create({
     conversation_id,
