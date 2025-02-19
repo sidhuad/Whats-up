@@ -7,6 +7,7 @@ import sequelize from './config/connection.js';
 import routes from './routes/index.js';
 import {Server} from 'socket.io';
 import http from 'http';
+import {Messages} from "./models/Messages.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -20,7 +21,8 @@ const io = new Server(server,{
   connectionStateRecovery:{},
   cors:{
     // client side address.
-    origin: `https://whats-up-7ihm.onrender.com`,
+    // https://whats-up-7ihm.onrender.com
+    origin: `http://localhost:3000`,
     methods: ["GET","POST"]
   }
 });
@@ -33,10 +35,21 @@ io.on("connection",(socket) => {
     socket.join(roomId);
     console.log(`room id is ${roomId}`);
   })
-  socket.on("send_message",(data) => {
+
+  socket.on("send_message", async (data) => {
     console.log("server side sending message to room:",data.roomId);
     console.log(" server side Message data:",data.text);
-    
+    // 
+    try {
+      await Messages.create({
+          conversation_id: data.roomId,
+          body: data.text,
+          status: "sent",
+        });
+    } catch (error) {
+      console.error('❌ Error saving message:', error);
+    }
+    // 
     socket.to(data.roomId).emit("receive_message",data);
   })
   socket.on("disconnect",() => {
