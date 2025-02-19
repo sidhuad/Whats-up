@@ -53,6 +53,12 @@ const Home = () => {
                             Login to start chatting with your friends! 🤠
                         </h1>
                         <img src={logo} alt="What's Up Logo"></img>
+                        <div className="div1">
+
+                        </div>
+                        <div className="div2">
+
+                        </div>
                     </div>
                 ) : (
                     //todo need to change this code to serve chat app and room

@@ -1682,7 +1682,8 @@ label form [type="radio"] {
     cursor: pointer;
   }
 
-  .scrollable {
+  .offcanvas-body {
+    max-height: calc(100vh - 62vh);
     overflow-y: scroll;
   }
 }
@@ -2050,8 +2051,8 @@ label form [type="radio"] {
   /* Sidebar for user list */
   .sidebar {
     position: relative;
-    left: 0;
-    top: 50;
+    /* left: 0; */
+    /* top: 50px; */
     width: fit-content;
     height: 65vh;
     background: white;
@@ -2188,7 +2189,8 @@ label form [type="radio"] {
   .userFriends:hover {
     cursor: pointer;
   }
-  .scrollable {
+  .offcanvas-body {
+    max-height: calc(100vh - 47vh);
     overflow-y: scroll;
   }
   .message {
@@ -2197,4 +2199,7 @@ label form [type="radio"] {
     word-wrap: break-word;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
+}
+img {
+  width: 250px;
 }
