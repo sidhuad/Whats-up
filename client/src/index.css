@@ -1827,3 +1827,10 @@ button {
   overflow-y: auto;
 
 }
+
+.message {
+  padding: 10px 15px;
+  border-radius: 15px;
+  word-wrap: break-word;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
