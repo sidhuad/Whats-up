@@ -123,6 +123,14 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     };
   }, [roomId]);
 
+  // Auto-scroll to the latest message
+  useEffect(() => {
+    const chatBox = document.getElementById("chatBox");
+    if (chatBox) {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div>
       <div className="containerbody mt-5">
@@ -169,7 +177,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             <main
               className="card-body chat-box overflow-auto"
               id="chatBox"
-              style={{ height: "400px" }}
+              style={{ height: "400px", overflowY: "auto" }}
             >
               {messages.map((msg, index) => (
                 <div className="w-100 mb-2" key={index}>
@@ -177,13 +185,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                     <span className="text-muted small text-start">
                       {msg.sender}
                     </span>
-                    <div
-                      className={`d-flex ${
-                        msg.sender === currentUser
-                          ? "justify-content-end"
-                          : "justify-content-start"
-                      }`}
-                    >
+                    <div>
                       <div
                         className={`message p-2 rounded-3 ${
                           msg.sender === currentUser
