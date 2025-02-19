@@ -121,6 +121,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     };
   }, [roomId]);
 
+  // toggle for hamburger button
+  const sidebar = document.querySelector('.sidebar');
+  const toggleClass =()=> {
+    sidebar?.classList.toggle('open');
+  }
+
   // Auto-scroll to the latest message
   useEffect(() => {
     const chatBox = document.getElementById("chatBox");
