@@ -1945,7 +1945,7 @@ label form [type="radio"] {
 }
 
 /* col-xl */
-@media (min-width: 992px) {
+@media (min-width: 992px){
   .col-xl-1 {
     flex: 0 0 8.33333%;
     max-width: 8.33333%;
@@ -2190,7 +2190,7 @@ label form [type="radio"] {
     cursor: pointer;
   }
   .offcanvas-body {
-    max-height: calc(100vh - 47vh);
+    max-height: calc(100vh - 63vh);
     overflow-y: scroll;
   }
   .message {
