@@ -50,7 +50,20 @@ io.on("connection",(socket) => {
       console.error('❌ Error saving message:', error);
     }
     // 
-    socket.to(data.roomId).emit("receive_message",data);
+    const allMessages: any = await Messages.findAll({
+      where: {
+        conversation_id: data.roomId
+      }
+    });
+    console.log(`Messages from room ${data.roomId}:`, allMessages);
+    socket.to(data.roomId).emit("receive_message", (data)
+      // id: allMessages.id,
+      // conversation_id: allMessages.conversation_id,
+      // body: allMessages.body,
+      // status: allMessages.status,
+      // createdAt: allMessages.createdAt,  // useful for sorting messages client-side
+  );
+
   })
   socket.on("disconnect",() => {
     console.log("user disconnected",socket.id);
