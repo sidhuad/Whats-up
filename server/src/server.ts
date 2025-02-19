@@ -7,7 +7,7 @@ import sequelize from './config/connection.js';
 import routes from './routes/index.js';
 import {Server} from 'socket.io';
 import http from 'http';
-// import Messages from "./controller/messagerController";
+import {Messages} from "./models/Messages.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,7 +21,8 @@ const io = new Server(server,{
   connectionStateRecovery:{},
   cors:{
     // client side address.
-    origin: `https://whats-up-7ihm.onrender.com`,
+    // https://whats-up-7ihm.onrender.com
+    origin: `http://localhost:3000`,
     methods: ["GET","POST"]
   }
 });
@@ -34,11 +35,35 @@ io.on("connection",(socket) => {
     socket.join(roomId);
     console.log(`room id is ${roomId}`);
   })
-  socket.on("send_message",(data) => {
+
+  socket.on("send_message", async (data) => {
     console.log("server side sending message to room:",data.roomId);
     console.log(" server side Message data:",data.text);
-    
-    socket.to(data.roomId).emit("receive_message",data);
+    // 
+    try {
+      await Messages.create({
+          conversation_id: data.roomId,
+          body: data.text,
+          status: "sent",
+        });
+    } catch (error) {
+      console.error('❌ Error saving message:', error);
+    }
+    // 
+    const allMessages: any = await Messages.findAll({
+      where: {
+        conversation_id: data.roomId
+      }
+    });
+    console.log(`Messages from room ${data.roomId}:`, allMessages);
+    socket.to(data.roomId).emit("receive_message", (data)
+      // id: allMessages.id,
+      // conversation_id: allMessages.conversation_id,
+      // body: allMessages.body,
+      // status: allMessages.status,
+      // createdAt: allMessages.createdAt,  // useful for sorting messages client-side
+  );
+
   })
   socket.on("disconnect",() => {
     console.log("user disconnected",socket.id);
