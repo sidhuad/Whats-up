@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
-// import {
-//   addMessage,
-//   getConversationID,
-// } from "../../../server/src/controller/messagerController";
 
 import type { UserData } from "../interfaces/UserData";
 import { type JwtPayload, jwtDecode } from "jwt-decode";
 import io from "socket.io-client";
 
 const socket = io("http://localhost:3001");
+
 
 // Define the props for the component
 interface UserListProps {
@@ -26,14 +23,30 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   }
   const currentUser = decodedUserToken?.username;
 
-  const [recipientID, setRecipientID] = useState(0);
-  const [recipientName, setRecipientName] = useState("");
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
-    []
-  );
-  const [roomId, setRoomId] = useState(0);
-  const [currentUserId, setCurrentUserId] = useState(0);
+  const [recipientID, setRecipientID] = useState<number>(0);
+  const [recipientName, setRecipientName] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [messages, setMessages] = useState<{sender:string,text: string }[]>([]);
+  const [roomId, setRoomId] = useState<string>("");
+
+  // check if socket is connected
+  useEffect(() => {
+    socket.on("connect",() => {
+      console.log(`-------------------------------`);
+      console.log(`socket is connected! ${socket.id}`);
+      console.log(`-------------------------------`);
+            
+    })
+    socket.on("disconnect",() => {
+      console.log(`socket is disconnected`);
+    })
+    return () => {
+      socket.off("connect")
+      socket.off("disconnect")
+    }
+    // console.log(`socket connected?: ${socket.connected}`);
+    
+  },[])
 
   function getUser(id: number, name: string) {
     setRecipientID(id);
@@ -41,75 +54,70 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     setMessages([]); // Clear chat history when switching users
     if (!currentUser) {
       return null;
-    }
+    }    
   }
-  const sendMessage = () => {
-    if (message.trim() !== "" && recipientID !== 0) {
+  const sendMessage = async () => {
+    if (message.trim() !== "" && recipientID !==0) {
+      
       const messageData = {
         sender: currentUser,
         recipientID,
         roomId,
         text: message,
       };
-
-      socket.emit("send_message", messageData); // Emit event to backend
-      setMessages((prev) => [...prev, { sender: "You", text: message }]);
+      
+      console.log(`sending message:`,messageData.text);
+      // console.log(`messages ${messages}`);
+      
+      await socket.emit("send_message", messageData); // Emit event to backend
+      setMessages((prev) => [...prev, {sender: "you", text:messageData.text}]);
       setMessage(""); // Clear input field
     }
   };
 
-  //   generating a chat room id
-  //   const chatRoomId = (currentUser: string, recipientID: number) => {
-  //     const loggedInUser = users?.find((user) => user.username === currentUser);
-  //     const userId = loggedInUser?.id;
-  //     if (!userId) {
-  //       return null;
-  //     }
-  //     setCurrentUserId(userId);
-  //     return userId < recipientID
-  //       ? `${userId}_${recipientID}`
-  //       : `${recipientID}_${userId}`;
-  //   };
-
-  //   useEffect(() => {
-  //     if (!currentUser || recipientID === 0) return;
-
-  //     const roomId = chatRoomId(currentUser, recipientID);
-  //     if (roomId) setRoomId(roomId);
-  //     console.log(`room id client side ${roomId}`);
-  //   }, [recipientID]);
+  // generating a chat room id
+  const chatRoomId = (currentUser:string, recipientID:number) => {
+    const loggedInUser = users?.find((user) =>  user.username === currentUser);
+    const currentUserId = loggedInUser?.id;
+    if (!currentUserId) {
+      return null;
+    }
+    return currentUserId < recipientID? `${currentUserId}_${recipientID}`:`${recipientID}_${currentUserId}`
+  }
 
   useEffect(() => {
-    async () => {
-      const loggedInUser = users?.find((user) => user.username === currentUser);
-      const userId = loggedInUser?.id;
-      if (!userId) {
-        return null;
-      }
-      setCurrentUserId(userId);
-      const newRoomId = await getConversationID(currentUserId, recipientID);
+    
+    if(!currentUser || recipientID === 0) return;
 
-      if (newRoomId) {
-        setRoomId(newRoomId);
-      }
-    };
-  }, [recipientID]);
+    const newroomId = chatRoomId(currentUser,recipientID);
+    if (newroomId) setRoomId(newroomId);
+    console.log(`room id client side ${newroomId}`);
+    socket.emit("join_room",newroomId);
+
+  },[recipientID])
 
   // Listen for incoming messages
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      if (data.recipientID === recipientID) {
-        setMessages((prev) => [
-          ...prev,
-          { sender: data.sender, text: data.text },
-        ]);
+    if (!roomId) return;
+
+    const handleReceiveMessage = (data: {
+      sender: string;
+      text: string;
+      roomId: string;
+    }) => {
+      console.log("Received message:", data);
+
+      if (data.roomId === roomId) {
+        setMessages((prev) => [...prev, { sender: data.sender, text: data.text }]);
       }
-    });
+    };
+
+    socket.on("receive_message", handleReceiveMessage);
 
     return () => {
-      socket.off("receive_message"); // Clean up event listener
+      socket.off("receive_message", handleReceiveMessage);
     };
-  }, [recipientID]);
+  }, [roomId]);
 
   return (
     <div>
@@ -120,7 +128,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           {/* Left Column - Users */}
           <div className="col-md-4">
             <section className="p-3">
-              <h4>Users</h4>
+              {/* <h4>Users</h4> */}
               {decodedUserToken &&
                 users &&
                 users
@@ -133,7 +141,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                   >
                     <div>
                       <h6
-                      style={{ cursor: 'pointer'}}
                         onClick={() =>
                           user.id &&
                           user.username &&
@@ -143,12 +150,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                         {user.id}. {user.username}
                       </h6>
                     </div>
-                    </div>
-                  ))}
+                  </div>
+                ))}
             </section>
           </div>
         </section>
-        <section className="statusbar">Status</section>
+        <section className="statusbar">{currentUser}</section>
         {/* Right Column - Chatroom */}
         {recipientID !== 0 ? (
           <section className="chat">
@@ -162,9 +169,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             >
               {/* Chat messages go here */}
               {messages.map((msg, index) => (
-                <div key={index} className="message mb-3">
-                  <strong>{msg.sender}:</strong> {msg.text}
-                </div>
+                <div key={index}>{msg.text}</div>
               ))}
             </main>
             <section className="card-footer">
@@ -189,7 +194,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           </>
         )}
       </div>
-
+      
       <footer className="text-center mt-5">
         Created by Mike, Ryan, Jenny, and Adarsh
       </footer>
