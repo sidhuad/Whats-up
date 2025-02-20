@@ -5,11 +5,11 @@ import { Messages } from '../../models/index.js';
 const router = express.Router();
 
 // GET /messages - Get all messages
-router.post('/', async (req: Request, res: Response) => {
+router.get('/:roomId', async (req: Request, res: Response) => {
   try {
     const messages = await Messages.findAll({
         where: {
-            conversation_id: req.body.roomId
+            conversation_id: req.params.roomId
           }
     });
     res.json(messages);

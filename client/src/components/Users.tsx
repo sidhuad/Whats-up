@@ -8,7 +8,7 @@ import { getMessages } from "../api/messagesAPI";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // https://whats-up-7ihm.onrender.com
-const socket = io("http://localhost:3001");
+const socket = io("https://whats-up-7ihm.onrender.com");
 
 // Define the props for the component
 interface UserListProps {
@@ -33,7 +33,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     [] as any
   );
   const [roomId, setRoomId] = useState<string>("");
-  const [showMessages, setShowMessages] = useState<[{}]>([{}]);
+  // const [showMessages, setShowMessages] = useState<{sender: string; text: string}[]>([]);
 
   // check if socket is connected
   useEffect(() => {
@@ -53,17 +53,22 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   }, []);
 
   useEffect(() => {
-    if (!roomId) return
+    if (!roomId) {
+      console.log('No room ID available')
+      return
+    }
+    
     const displayMessages = async () => {
       const displayedMessages = await getMessages(roomId);
-      setShowMessages(displayedMessages);
+      setMessages(displayedMessages);
     };
     displayMessages();
   }, [roomId]);
 
-  useEffect(() => {
-    console.log(`this is showMessages ${JSON.stringify(showMessages)}`);
-  }, [showMessages]);
+  // useEffect(() => {
+     
+  //   console.log(`this is showMessages ${JSON.stringify(showMessages)}`);
+  // }, [showMessages]);
 
   function getUser(id: number, name: string) {
     setRecipientID(id);
@@ -131,7 +136,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       console.log("Received message:", data);
 
       if (data.roomId === roomId) {
-        setMessages((prev) => [
+        setMessages((prev) =>[
           ...prev,
           { sender: data.sender, text: data.text },
         ]);
@@ -217,6 +222,9 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
               style={{ height: "400px", overflowY: "auto" }}
             >
               {/* Chat messages go here */}
+              {/* {showMessages.map((msg, index) => (
+                
+              ))} */}
               {messages.map((msg, index) => (
                 <div className="w-100 mb-2" key={index}>
                   <div className="d-flex flex-column">
