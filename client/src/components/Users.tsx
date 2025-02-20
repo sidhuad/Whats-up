@@ -8,7 +8,7 @@ import { getMessages } from "../api/messagesAPI";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // https://whats-up-7ihm.onrender.com
-const socket = io("https://whats-up-7ihm.onrender.com");
+const socket = io("http://localhost:3001");
 
 // Define the props for the component
 interface UserListProps {
@@ -29,7 +29,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   const [recipientID, setRecipientID] = useState<number>(0);
   const [recipientName, setRecipientName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
+  const [messages, setMessages] = useState<{ sender: string; body: string }[]>(
     [] as any
   );
   const [roomId, setRoomId] = useState<string>("");
@@ -73,7 +73,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   function getUser(id: number, name: string) {
     setRecipientID(id);
     setRecipientName(name);
-    setMessages([]); // Clear chat history when switching users
+    // setMessages([]); // Clear chat history when switching users
     if (!currentUser) {
       return null;
     }
@@ -88,16 +88,16 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
         sender: currentUser,
         recipientID,
         roomId,
-        text: message,
+        body: message,
       };
 
-      console.log(`sending message:`, messageData.text);
+      console.log(`sending message:`, messageData.body);
       // console.log(`messages ${messages}`);
 
       await socket.emit("send_message", messageData); // Emit event to backend
       setMessages((prev) => [
         ...prev,
-        { sender: "you", text: messageData.text },
+        { sender: messageData.sender!, body: messageData.body },
       ]);
       setMessage(""); // Clear input field
     }
@@ -130,15 +130,15 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
     const handleReceiveMessage = (data: {
       sender: string;
-      text: string;
+      body: string;
       roomId: string;
     }) => {
-      console.log("Received message:", data);
+      console.log("Received message client side:", data);
 
       if (data.roomId === roomId) {
         setMessages((prev) =>[
           ...prev,
-          { sender: data.sender, text: data.text },
+          { sender: data.sender, body: data.body },
         ]);
       }
     };
@@ -163,6 +163,10 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       chatBox.scrollTop = chatBox.scrollHeight;
     }
   }, [messages]);
+
+  useEffect(() => {
+    console.log(messages);
+  },[roomId]);
 
   return (
     <div>
@@ -222,9 +226,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
               style={{ height: "400px", overflowY: "auto" }}
             >
               {/* Chat messages go here */}
-              {/* {showMessages.map((msg, index) => (
-                
-              ))} */}
               {messages.map((msg, index) => (
                 <div className="w-100 mb-2" key={index}>
                   <div className="d-flex flex-column">
@@ -235,12 +236,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                       <div
                         className={`message p-2 rounded-3 ${
                           msg.sender === currentUser
-                            ? "bg-success text-white"
+                            ? "bg-success text-dark"
                             : "bg-light text-dark"
                         }`}
                         style={{ maxWidth: "70%" }}
                       >
-                        {msg.text}
+                        {msg.body}
                       </div>
                     </div>
                   </div>
