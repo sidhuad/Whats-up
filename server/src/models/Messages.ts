@@ -4,6 +4,7 @@ import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 // Define the attributes for the MESSAGES model
 interface MessagesAttributes {
   id: number;
+  sender: string;
   conversation_id: number;
   body: string;
   status: string;
@@ -15,9 +16,11 @@ interface MessagesCreationAttributes extends Optional<MessagesAttributes, 'id'> 
 // Define the Messages class extending Sequelize's Model
 export class Messages extends Model<MessagesAttributes, MessagesCreationAttributes> implements MessagesAttributes {
   public id!: number;
+  public sender!: string;
   public conversation_id!: number;
   public body!: string;
   public status!: string;
+
 
   // public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -37,6 +40,10 @@ export function MessagesFactory(sequelize: Sequelize): typeof Messages {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+      },
+      sender: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       conversation_id: {
         type: DataTypes.INTEGER,
