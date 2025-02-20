@@ -7,7 +7,6 @@ import { getMessages } from "../api/messagesAPI";
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-// https://whats-up-7ihm.onrender.com
 // const socket = io("http://localhost:3001");
 const socket = io("https://whats-up-7ihm.onrender.com");
 
@@ -237,7 +236,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                       <div
                         className={`message p-2 rounded-3 ${
                           msg.sender === currentUser
-                            ? "bg-success text-dark"
+                            ? "bg-info text-dark"
                             : "bg-light text-dark"
                         }`}
                         style={{ maxWidth: "70%" }}
