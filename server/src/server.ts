@@ -22,7 +22,7 @@ const io = new Server(server,{
   cors:{
     // client side address.
     // https://whats-up-7ihm.onrender.com
-    origin: `http://localhost:3000`,
+    origin: `https://whats-up-7ihm.onrender.com`,
     methods: ["GET","POST"]
   }
 });
@@ -43,6 +43,7 @@ io.on("connection",(socket) => {
     try {
       await Messages.create({
           conversation_id: data.roomId,
+          sender: data.sender,
           body: data.text,
           status: "sent",
         });

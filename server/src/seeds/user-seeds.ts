@@ -20,9 +20,9 @@ export const seedConversations = async () => {
 
 export const seedMessages = async () => {
   await Messages.bulkCreate([
-    { conversation_id: 1, body: 'Hi Bob, how are you?', status: ''},
-    { conversation_id: 1, body: 'I am good Alice, thanks for asking!', status: ''},
-    { conversation_id: 2, body: 'Hey Alice, are you coming to the event?', status: ''},
-    { conversation_id: 3, body: 'Hello Charlie, long time no see!', status: ''}
+    { conversation_id: 1, sender: 'alicej', body: 'Hi Bob, how are you?',  status: ''},
+    { conversation_id: 1, sender: 'bobsmith', body: 'I am good Alice, thanks for asking!',  status: ''},
+    { conversation_id: 2, sender: 'charlieb', body: 'Hey Alice, are you coming to the event?',  status: ''},
+    { conversation_id: 3, sender: 'bobsmith', body: 'Hello Charlie, long time no see!', status: ''}
   ], { individualHooks: true });
 };

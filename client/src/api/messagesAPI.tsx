@@ -3,13 +3,13 @@ import Auth from '../utils/auth';
 const getMessages = async (roomId: string) => {
   try {
     // Send a POST request to '/auth/login' with user login information in JSON format
-    const response = await fetch('/api/messages', {
-      method: 'POST',
+    const response = await fetch(`/api/messages/${roomId}`, {
+      method: 'GET',
       headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${Auth.getToken()}`
             },
-      body: roomId
+    //   body: "23"
     });
 
     // Throw error if response status is not OK (200-299)
