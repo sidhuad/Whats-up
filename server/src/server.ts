@@ -23,8 +23,8 @@ const io = new Server(server,{
     // client side address.
     // https://whats-up-7ihm.onrender.com
     
-    // origin: `http://localhost:3000`,
-    origin: `https://whats-up-7ihm.onrender.com`,
+    origin: `http://localhost:3000`,
+    // origin: `https://whats-up-7ihm.onrender.com`,
 
     methods: ["GET","POST"]
   }
