@@ -1332,8 +1332,8 @@ label form [type="radio"] {
   max-width: 100%;
 }
 
-/* col-sm */
-@media screen and (min-width: 640px) {
+/*xsm screens*/
+@media (min-width: 425px) and (max-width: 640px) {
   .col-sm-auto {
     flex-grow: 1;
     flex-basis: 0;
@@ -1425,10 +1425,458 @@ label form [type="radio"] {
   .align-content-center-sm {
     align-content: center;
   }
+   /* custom styles */
+   ::-webkit-scrollbar {
+    display: none;
+  }
+  .hamburger-menu{
+    display: block;
+    position: relative;
+    left: 0px;
+    z-index: 999;
+  }
+  .containerbody {
+    margin-top: 0%;
+    display: flex;
+    align-items: start; /* Ensures vertical alignment */
+    justify-content: flex-start; /* Aligns elements to the left */
+  }
+  .sidebar {
+    position: absolute;
+    left: 100px;
+    width: fit-content;
+    height: 72vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    z-index: 999;
+
+    transition: transform 0.3s ease-in-out, opacity  0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(-60px,0px,0px);
+  }
+  .sidebar.open{
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(-40px, 0px, 0px);
+  }
+
+  .friends {
+    border: 3px solid gray;
+    border-radius: 20px;
+    padding: 20px;
+    font-family: "Patrick Hand", cursive;
+    font-size: 25px;
+  }
+
+  .people {
+    margin-top: 10px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; /* Adjusted font size */
+  }
+
+  /* Hand-drawn button style */
+  .custmbutton {
+    background: gray;
+    color: black;
+    border: 3px solid gray;
+    padding: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: "Patrick Hand", cursive;
+    box-shadow: 0px 0px 18px gray;
+    transition: all 0.2s ease;
+    position: relative;
+    top: -9px;
+    border-radius: 10px;
+    margin-left: 4px;
+  }
+  .custmbutton:hover {
+    opacity: 0.5;
+  }
+
+  /* Status bar beneath the sidebar */
+  .statusbar {
+    position: relative;
+    /* margin-left: 5px; */
+    left: 210px;
+    top: -446px;
+    height: auto;
+    background: rgb(104, 235, 122);
+    border-radius: 10px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: "Patrick Hand", cursive;
+  }
+
+  .chat {
+    position: relative;
+    left: 10px;
+    width: 80%;
+    height: 72vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chatbox {
+    position: relative;
+    height: 45px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 95%;
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    padding: 20px;
+  }
+  .searchbox {
+    position: relative;
+    left: 0;
+    top: 50;
+    width: 20%;
+    height: 80px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: -2px 0px 0px black;
+    padding: 20px;
+    margin-left: 30px;
+    overflow-y: auto;
+  }
+
+  .input-group {
+    display: flex;
+  }
+
+  .card-header {
+    font-size: 20px;
+  }
+
+  .foot {
+    position: relative;
+    font-size: 22px;
+    margin-top: 5px;
+  }
+
+  .userFriends {
+    border: 2px solid gray;
+    min-width: fit-content;
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 0px;
+  }
+
+  .userFriends:hover {
+    cursor: pointer;
+  }
+
+  .offcanvas-body {
+    max-height: calc(100vh - 62vh);
+    overflow-y: scroll;
+  }
+  .message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+/* col-sm */
+@media (min-width: 640px) and (max-width:768px) {
+  .col-sm-auto {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  .col-sm-1 {
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+  .col-sm-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+  .col-sm-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .col-sm-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+  .col-sm-5 {
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+  }
+  .col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .col-sm-7 {
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+  }
+  .col-sm-8 {
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+  .col-sm-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .col-sm-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+  }
+  .col-sm-11 {
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+  .col-sm-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .justify-space-between-sm {
+    justify-content: space-between;
+  }
+  .justify-space-around-sm {
+    justify-content: space-around;
+  }
+  .justify-flex-start-sm {
+    justify-content: flex-start;
+  }
+  .justify-flex-end-sm {
+    justify-content: flex-end;
+  }
+  .justify-center-sm {
+    justify-content: center;
+  }
+  .align-start-sm {
+    align-items: flex-start;
+  }
+  .align-stretch-sm {
+    align-items: stretch;
+  }
+  .align-end-sm {
+    align-items: flex-end;
+  }
+  .align-center-sm {
+    align-items: center;
+  }
+  .align-content-start-sm {
+    align-content: flex-start;
+  }
+  .align-content-stretch-sm {
+    align-content: stretch;
+  }
+  .align-content-end-sm {
+    align-content: flex-end;
+  }
+  .align-content-center-sm {
+    align-content: center;
+  }
+   /* custom styles */
+   ::-webkit-scrollbar {
+    display: none;
+  }
+  .hamburger-menu{
+    display: block;
+    position: relative;
+    left: 30px;
+  }
+  .containerbody {
+    margin-top: 0%;
+    display: flex;
+    align-items: start; /* Ensures vertical alignment */
+    justify-content: flex-start; /* Aligns elements to the left */
+  }
+  .sidebar {
+    position: absolute;
+    left: 100px;
+    width: fit-content;
+    height: 72vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    z-index: 999;
+
+    transition: transform 0.3s ease-in-out, opacity  0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(20px,0px,0px);
+  }
+  .sidebar.open{
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0px, 0px, 0px);
+  }
+
+  .friends {
+    border: 3px solid gray;
+    border-radius: 20px;
+    padding: 20px;
+    font-family: "Patrick Hand", cursive;
+    font-size: 25px;
+  }
+
+  .people {
+    margin-top: 10px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; /* Adjusted font size */
+  }
+
+  /* Hand-drawn button style */
+  .custmbutton {
+    background: gray;
+    color: black;
+    border: 3px solid gray;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: "Patrick Hand", cursive;
+    box-shadow: 0px 0px 18px gray;
+    transition: all 0.2s ease;
+    position: relative;
+    top: -13px;
+    border-radius: 10px;
+    margin-left: 4px;
+  }
+  .custmbutton:hover {
+    opacity: 0.5;
+  }
+
+  /* Status bar beneath the sidebar */
+  .statusbar {
+    position: relative;
+    margin-left: 5px;
+    left: 80px;
+    height: 70px;
+    background: rgb(104, 235, 122);
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 1.2em;
+    font-family: "Patrick Hand", cursive;
+  }
+
+  .chat {
+    position: relative;
+    left: 80px;
+    width: 60%;
+    height: 72vh; /* Adjusted height */
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 18px gray;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chatbox {
+    position: relative;
+    height: 45px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    /* margin: 0 auto; */
+    width: 95%;
+    background: white;
+    border: 3px solid gray;
+    border-radius: 20px;
+    box-shadow: 0px black;
+    padding: 20px;
+  }
+  .searchbox {
+    position: relative;
+    left: 0;
+    top: 50;
+    width: 20%;
+    height: 80px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: -2px 0px 0px black;
+    padding: 20px;
+    margin-left: 30px;
+    overflow-y: auto;
+  }
+
+  .input-group {
+    display: flex;
+  }
+
+  .card-header {
+    font-size: 20px;
+  }
+
+  .foot {
+    position: relative;
+    font-size: 22px;
+    margin-top: 5px;
+  }
+
+  .userFriends {
+    border: 2px solid gray;
+    min-width: fit-content;
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 0px;
+  }
+
+  .userFriends:hover {
+    cursor: pointer;
+  }
+
+  .offcanvas-body {
+    max-height: calc(100vh - 62vh);
+    overflow-y: scroll;
+  }
+  .message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* col-md */
-@media (min-width: 768px) and (max-width: 920px) {
+@media (min-width: 768px) and ( max-width: 920px) {
   .col-md-auto {
     flex-grow: 1;
     flex-basis: 0;
@@ -1546,12 +1994,18 @@ label form [type="radio"] {
     border-radius: 20px;
     box-shadow: 0px 0px 18px gray;
     padding: 20px;
-    display: none;
     z-index: 999;
+
+    transition: transform 0.3s ease-in-out, opacity  0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0px,0px,0px);
   }
   .sidebar.open{
-    display: block;
-    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(80px, 0px, 0px);
   }
 
   .friends {
@@ -1685,6 +2139,12 @@ label form [type="radio"] {
   .offcanvas-body {
     max-height: calc(100vh - 62vh);
     overflow-y: scroll;
+  }
+  .message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -1942,6 +2402,16 @@ label form [type="radio"] {
   .scrollable {
     overflow-y: scroll;
   }
+  .message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  input.chatbox.form-control{
+    height: 10px;
+  }
+
 }
 
 /* col-xl */
