@@ -23,7 +23,9 @@ const io = new Server(server,{
     // client side address.
     // https://whats-up-7ihm.onrender.com
     
-    origin: `https://whats-up-7ihm.onrender.com`,
+    origin: `http://localhost:3000`,
+    // origin: `https://whats-up-7ihm.onrender.com`,
+
     methods: ["GET","POST"]
   }
 });
@@ -39,13 +41,15 @@ io.on("connection",(socket) => {
 
   socket.on("send_message", async (data) => {
     console.log("server side sending message to room:",data.roomId);
-    console.log(" server side Message data:",data.text);
+    console.log(" server side Message data:",data.body);
+    console.log(`i should see the data coming : ${data}`);
+    
     // 
     try {
       await Messages.create({
           conversation_id: data.roomId,
           sender: data.sender,
-          body: data.text,
+          body: data.body,
           status: "sent",
         });
     } catch (error) {
