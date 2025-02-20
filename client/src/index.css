@@ -362,7 +362,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
-  color: #1a1a1a;
+  background-color: rgba(0, 0, 0, 0.856);
+  color: rgb(255, 255, 255);
 }
 
 h1,
@@ -925,7 +926,7 @@ a:hover {
 }
 
 .bg-info {
-  background-color: #1bbc9b !important;
+  background-color: #1b96bc !important;
 }
 
 .bg-danger {
@@ -1446,10 +1447,10 @@ label form [type="radio"] {
     left: 100px;
     width: fit-content;
     height: 72vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     z-index: 999;
 
@@ -1506,9 +1507,10 @@ label form [type="radio"] {
   /* Status bar beneath the sidebar */
   .statusbar {
     position: relative;
+    margin: 0 auto;
     /* margin-left: 5px; */
-    left: 210px;
-    top: -446px;
+    /* left: 210px;
+    top: -446px; */
     height: auto;
     background: rgb(104, 235, 122);
     border-radius: 10px;
@@ -1524,10 +1526,10 @@ label form [type="radio"] {
     left: 10px;
     width: 80%;
     height: 72vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -1542,11 +1544,12 @@ label form [type="radio"] {
     right: 0;
     margin: 0 auto;
     width: 95%;
-    background: white;
+    background: rgba(0, 0, 0, 0.856);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px black;
+    box-shadow: 0px whitesmoke;
     padding: 20px;
+    color: white;
   }
   .searchbox {
     position: relative;
@@ -1716,10 +1719,10 @@ label form [type="radio"] {
     left: 100px;
     width: fit-content;
     height: 72vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     z-index: 999;
 
@@ -1795,10 +1798,10 @@ label form [type="radio"] {
     left: 80px;
     width: 60%;
     height: 72vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -1813,11 +1816,12 @@ label form [type="radio"] {
     right: 0;
     /* margin: 0 auto; */
     width: 95%;
-    background: white;
+    background: rgba(0, 0, 0, 0.856);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px black;
+    box-shadow: 0px whitesmoke;
     padding: 20px;
+    color: white;
   }
   .searchbox {
     position: relative;
@@ -1989,10 +1993,10 @@ label form [type="radio"] {
     /* top: 50px; */
     width: fit-content;
     height: 60vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     z-index: 999;
 
@@ -2068,10 +2072,10 @@ label form [type="radio"] {
     left: 80px;
     width: 60%;
     height: 60vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     margin-left: 4%;
     display: flex;
@@ -2087,11 +2091,12 @@ label form [type="radio"] {
     right: 0;
     margin: 0 auto;
     width: 95%;
-    background: white;
+    background: rgba(0, 0, 0, 0.856);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px black;
+    box-shadow: 0px whitesmoke;
     padding: 20px;
+    color: white
   }
   .searchbox {
     position: relative;
@@ -2260,10 +2265,10 @@ label form [type="radio"] {
     /* top: 50px; */
     width: fit-content;
     height: 60vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
   }
 
@@ -2325,10 +2330,10 @@ label form [type="radio"] {
     left: 0;
     width: 70%;
     height: 60vh; /* Adjusted height */
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     margin-left: 4%;
     display: flex;
@@ -2344,14 +2349,15 @@ label form [type="radio"] {
     right: 0;
     margin: 0 auto;
     width: 95%;
-    background: white;
+    background: rgba(0, 0, 0, 0.856);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px black;
+    box-shadow: 0px whitesmoke;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white
   }
 
   .searchbox {
@@ -2525,10 +2531,10 @@ label form [type="radio"] {
     /* top: 50px; */
     width: fit-content;
     height: 65vh;
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     /* overflow-y: scroll; */
   }
@@ -2594,10 +2600,10 @@ label form [type="radio"] {
     left: 0;
     width: 70%;
     height: 65vh;
-    background: white;
+    background: rgba(26, 26, 26, 0.918);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px 0px 18px gray;
+    box-shadow: 0px 0px 18px whitesmoke;
     padding: 20px;
     margin-left: 4%;
     display: flex;
@@ -2612,14 +2618,15 @@ label form [type="radio"] {
     right: 0; /* Makes the chatbox centered */
     margin: 0 auto;
     width: 95%; /* Takes full width of the .chat container */
-    background: white;
+    background: rgba(24, 24, 24, 0.685);;
     border: 3px solid gray;
     border-radius: 20px;
-    box-shadow: 0px black;
+    box-shadow: 0px whitesmoke;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
   }
   .searchbox {
     position: relative;
