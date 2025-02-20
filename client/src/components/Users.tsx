@@ -8,7 +8,8 @@ import { getMessages } from "../api/messagesAPI";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // https://whats-up-7ihm.onrender.com
-const socket = io("http://localhost:3001");
+// const socket = io("http://localhost:3001");
+const socket = io("https://whats-up-7ihm.onrender.com");
 
 // Define the props for the component
 interface UserListProps {
