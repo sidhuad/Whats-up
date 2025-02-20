@@ -22,6 +22,7 @@ const io = new Server(server,{
   cors:{
     // client side address.
     // https://whats-up-7ihm.onrender.com
+    
     origin: `https://whats-up-7ihm.onrender.com`,
     methods: ["GET","POST"]
   }
