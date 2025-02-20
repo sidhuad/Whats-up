@@ -69,7 +69,7 @@ Your portfolio should now be running locally at ```http://localhost:3000```.
 
 
 ## License 
-This project is licensed under ...... 
+This project is licensed under MIT. 
 
 
 ## Contributing 
@@ -120,7 +120,7 @@ npm run start:dev
 
 3. Access the website
 
-    Open your web browser and go to http://localhost:3000 (or the appropriate URL if deployed) to access the WhatsUP application.
+    Open your web browser and go to http://localhost:3000 or the rendered link, https://whats-up-7ihm.onrender.com/, to access the WhatsUP application.
 
 4. Test Features
 
@@ -136,5 +136,5 @@ npm run start:dev
 
 
 ## Questions 
-If there are any additional questions that we can answer for you, reach out to us at ...
+If there are any additional questions, don't be afraid to reach out to any one of us, [Jenny](https://github.com/je210506), [Ryan](https://github.com/hongfetti), [Adarsh](https://github.com/sidhuad), and [Mike](https://github.com/mnorris3) on GitHub.
 
