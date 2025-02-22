@@ -49,7 +49,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       socket.off("connect");
       socket.off("disconnect");
     };
-    // console.log(`socket connected?: ${socket.connected}`);
   }, []);
 
   useEffect(() => {
@@ -65,23 +64,14 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     displayMessages();
   }, [roomId]);
 
-  // useEffect(() => {
-     
-  //   console.log(`this is showMessages ${JSON.stringify(showMessages)}`);
-  // }, [showMessages]);
-
   function getUser(id: number, name: string) {
     setRecipientID(id);
     setRecipientName(name);
-    // setMessages([]); // Clear chat history when switching users
     if (!currentUser) {
       return null;
     }
   }
 
-  // function getMessages(conversation_id: number) {
-
-  // }
   const sendMessage = async () => {
     if (message.trim() !== "" && recipientID !== 0) {
       const messageData = {
@@ -90,9 +80,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
         roomId,
         body: message,
       };
-
-      console.log(`sending message:`, messageData.body);
-      // console.log(`messages ${messages}`);
 
       await socket.emit("send_message", messageData); // Emit event to backend
       setMessages((prev) => [
@@ -120,7 +107,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
     const newroomId = chatRoomId(currentUser, recipientID);
     if (newroomId) setRoomId(newroomId);
-    console.log(`room id client side ${newroomId}`);
     socket.emit("join_room", newroomId);
   }, [recipientID]);
 
@@ -133,7 +119,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       body: string;
       roomId: string;
     }) => {
-      console.log("Received message client side:", data);
 
       if (data.roomId === roomId) {
         setMessages((prev) =>[
@@ -203,7 +188,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                                 user.username &&
                                 getUser(user.id, user.username);
                             }
-                            // getMessages(chatRoomId)
                           }
                         >
                           <li>{user.username}</li>
